@@ -11,7 +11,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '~/styles/home.css'
-import { Pagination, Navigation } from 'swiper/modules';
+// import { Pagination, Navigation } from 'swiper/modules';
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col">
@@ -46,7 +46,7 @@ export default function HomePage() {
         <div className="container mx-auto py-24">
           <h1 className="text-center text-[39px]">Promotion</h1>
           <div className="flex flex-row justify-center mt-12 gap-7">
-          <Swiper
+          {/* <Swiper
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -66,7 +66,7 @@ export default function HomePage() {
         <SwiperSlide>Slide 7</SwiperSlide>
         <SwiperSlide>Slide 8</SwiperSlide>
         <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
+      </Swiper> */}
           </div>
         </div>
 
