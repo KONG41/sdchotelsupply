@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 import TrpcProvider from "@/app/_trpc/Provider";
 import { Inter } from "next/font/google";
 import { Providers } from "@/app/providers";
+import {Toaster} from "sonner"
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({
               {children}
           </Providers>
         </TrpcProvider>
+        <Toaster />
       </body>
     </html>
   );

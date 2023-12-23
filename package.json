@@ -25,7 +25,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.12.0",
+<<<<<<< Updated upstream
     "swiper": "^11.0.5",
+=======
+    "sonner": "^1.2.4",
+>>>>>>> Stashed changes
     "zod": "^3.22.4"
   },
   "devDependencies": {
