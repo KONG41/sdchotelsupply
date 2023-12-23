@@ -1,9 +1,7 @@
 import "~/styles/globals.css";
-
+import TrpcProvider from "@/app/_trpc/Provider";
 import { Inter } from "next/font/google";
-import Header from "./_components/Header";
-import Footer from "./_components/Footer";
-import { Providers } from "./providers";
+import { Providers } from "@/app/providers";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -23,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <Providers>
-          <Header />
-            {children}
-          <Footer/>
-        </Providers>
+        <TrpcProvider BASE_URL="http://localhost:3000">
+          <Providers>
+              {children}
+          </Providers>
+        </TrpcProvider>
       </body>
     </html>
   );
