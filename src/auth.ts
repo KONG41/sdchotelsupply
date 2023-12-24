@@ -1,6 +1,7 @@
 import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { redirect } from "next/navigation";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { db } from "./server/db";
 
 declare module "next-auth" {
   interface Session {
@@ -11,52 +12,7 @@ declare module "next-auth" {
   }
 }
 
-const BASE_URL = process.env.NEXTAUTH_URL || "http://localhost:3003";
-// this is not used
-export const authOptions: NextAuthConfig = {
-  providers: [
-    CredentialsProvider({
-      async authorize(credentials) {
-        const res = await fetch(BASE_URL + "/api/auth/login", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
-        const user = await res.json();
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user;
-        }
-        // Return null if user data could not be retrieved
-        return null;
-      },
-    }),
-  ],
-  callbacks: {
-    jwt({ token, profile, user }) {
-      if (profile) {
-        token.image = profile.picture;
-      }
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    authorized({ auth }) {
-      return !!auth?.user; // this ensures there is a logged in user for -every- request
-    },
-    redirect({ baseUrl }) {
-      return redirect(baseUrl);
-    },
-  },
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.SECRET,
-  pages: {
-    signIn: "/login", // overrides the next-auth default signin page https://authjs.dev/guides/basics/pages
-  },
-};
+const BASE_URL = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
 export const {
   handlers: { GET, POST },
@@ -65,12 +21,13 @@ export const {
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        const res = await fetch(BASE_URL + "/api/auth/login", {
+        const res = await fetch(BASE_URL + "/api/v1/login", {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
         const user = await res.json();
+        // console.log("user", user, res.ok);
         // If no error and we have user data, return it
         if (res.ok && user) {
           return user;
@@ -87,11 +44,12 @@ export const {
       }
       if (user) {
         token.id = user.id;
+        token.name = user.name;
       }
       return token;
     },
     session({ session, token }) {
-      session.user && (session.user.id = token.id as number);
+      session.user && (session.user.id = token.id as never);
       return session;
     },
     authorized({ auth }) {
@@ -106,6 +64,6 @@ export const {
   },
   secret: process.env.SECRET,
   pages: {
-    signIn: "/login", // overrides the next-auth default signin page https://authjs.dev/guides/basics/pages
+    signIn: "/sdch-admin", // overrides the next-auth default signin page https://authjs.dev/guides/basics/pages
   },
 });
