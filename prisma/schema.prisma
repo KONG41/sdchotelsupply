@@ -21,9 +21,13 @@ model Post {
 }
 
 model User {
-    id       Int    @id @default(autoincrement())
-    username String @unique
-    password String
-    email    String
-    status   String
+    id        Int      @id @default(autoincrement())
+    name      String?
+    username  String   @unique
+    password  String?
+    email     String?
+    role      String?
+    status    String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }

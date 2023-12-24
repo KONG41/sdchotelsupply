@@ -2,6 +2,13 @@ import "~/styles/globals.css";
 import TrpcProvider from "@/app/_trpc/Provider";
 import { Inter } from "next/font/google";
 import { Providers } from "@/app/providers";
+import {Toaster} from "sonner"
+import Sidebar from "@/app/_components/admin/sidebar";
+import Topbar from "@/app/_components/admin/topbar";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
+import { db } from "~/server/db";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -13,19 +20,34 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+  if(!session){
+    redirect("/")
+  }
+  const user = await db.user.findUnique({where:{id:Number(session.user.id)},select:{username:true}})
+
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <TrpcProvider BASE_URL="http://localhost:3000">
           <Providers>
-              {children}
+          <div className="flex h-screen">
+              <Sidebar />
+              <div className="flex flex-col w-full p-3">
+                <Topbar user={user}/>
+                <div className="flex h-full mt-3">
+                  {children}
+                </div>
+              </div>
+          </div>
           </Providers>
         </TrpcProvider>
+        <Toaster />
       </body>
     </html>
   );
