@@ -1,7 +1,8 @@
 "use client";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button, Spinner , getKeyValue} from "@nextui-org/react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import AddUserModalBtn from "../modal-btn/adduser";
+import EditUserModalBtn from "../modal-btn/edituser";
 import { useCallback } from "react";
 
 export default function UserPage(){
@@ -11,14 +12,14 @@ export default function UserPage(){
     
     type User =  {
         username: string;
-        role: string | null;
+        email: string | null;
         status: string | null;
         id: number;
     }
     
     const columns = [
         {key:"username",label:"USERNAME"},
-        {key:"role",label:"ROLE"},
+        {key:"email",label:"EMAIL"},
         {key:"status",label:"STATUS"},
         {key:"action",label:"ACTION"}
     ];
@@ -30,25 +31,25 @@ export default function UserPage(){
       case "username":
         return (
             <div>
-                {user.username?user.username:""}
+                {user.username}
             </div>
         );
-      case "role":
+      case "email":
         return (
           <div>
-            {user.role?user.role:""}
+            {user.email}
           </div>  
         );
       case "status":
         return (
           <div>
-            {user.status?user.status:""}
+            {user.status}
           </div>
         );
       case "action":
         return (
           <div className="relative flex items-center gap-2">
-            <Button>Edit</Button>
+            <EditUserModalBtn id={user.id} />
           </div>
         );
       default:
