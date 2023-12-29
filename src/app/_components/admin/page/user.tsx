@@ -1,8 +1,62 @@
 "use client";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button} from "@nextui-org/react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button, Spinner , getKeyValue} from "@nextui-org/react";
+import { trpc } from "~/app/_trpc/client";
 import AddUserModalBtn from "../modal-btn/adduser";
+import { useCallback } from "react";
 
 export default function UserPage(){
+
+    const { data:users , error ,isLoading} = trpc.getUsers.useQuery()
+    console.log("user",users)
+    
+    type User =  {
+        username: string;
+        role: string | null;
+        status: string | null;
+        id: number;
+    }
+    
+    const columns = [
+        {key:"username",label:"USERNAME"},
+        {key:"role",label:"ROLE"},
+        {key:"status",label:"STATUS"},
+        {key:"action",label:"ACTION"}
+    ];
+
+    const renderCell = useCallback((user: User , columnKey: React.Key) => {
+
+    const cellValue = user[columnKey as keyof User];
+    switch (columnKey) {
+      case "username":
+        return (
+            <div>
+                {user.username?user.username:""}
+            </div>
+        );
+      case "role":
+        return (
+          <div>
+            {user.role?user.role:""}
+          </div>  
+        );
+      case "status":
+        return (
+          <div>
+            {user.status?user.status:""}
+          </div>
+        );
+      case "action":
+        return (
+          <div className="relative flex items-center gap-2">
+            <Button>Edit</Button>
+          </div>
+        );
+      default:
+        return <>
+        {cellValue?cellValue:''}
+        </>;
+    }
+  }, []);
 
     return (
         <div className="w-full">
@@ -10,46 +64,32 @@ export default function UserPage(){
                 <AddUserModalBtn />
             </div>
             <Table aria-label="User table">
-            <TableHeader>
-                <TableColumn>NAME</TableColumn>
-                <TableColumn>ROLE</TableColumn>
-                <TableColumn>STATUS</TableColumn>
-                <TableColumn>ACTION</TableColumn>
+            <TableHeader columns={columns}>
+                {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
             </TableHeader>
-            <TableBody>
-                <TableRow key="1">
-                <TableCell>Tony Reichert</TableCell>
-                <TableCell>CEO</TableCell>
-                <TableCell>Active</TableCell>
-                <TableCell>
-                    <Button>Edit</Button>
-                </TableCell>
+            {isLoading?
+                <TableBody isLoading={isLoading} loadingContent={<Spinner className="mt-14" />} >
+                    <TableRow>
+                        <TableCell> </TableCell>
+                        <TableCell> </TableCell>
+                        <TableCell> </TableCell>
+                        <TableCell> </TableCell>
+                    </TableRow>
+                </TableBody>
+            :<TableBody isLoading={isLoading} items={users}  loadingContent={<Spinner />}>
+                 {(item) => (
+                    <TableRow key={item.id}>
+                        {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>} 
+                    </TableRow>
+                    )}
+            </TableBody>}
+             {/* <TableBody items={users}>
+                {(item) => (
+                <TableRow key={item.id}>
+                    {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                 </TableRow>
-                <TableRow key="2">
-                <TableCell>Zoey Lang</TableCell>
-                <TableCell>Technical Lead</TableCell>
-                <TableCell>Paused</TableCell>
-                <TableCell>
-                    <Button>Edit</Button>
-                </TableCell>
-                </TableRow>
-                <TableRow key="3">
-                <TableCell>Jane Fisher</TableCell>
-                <TableCell>Senior Developer</TableCell>
-                <TableCell>Active</TableCell>
-                <TableCell>
-                    <Button>Edit</Button>
-                </TableCell>
-                </TableRow>
-                <TableRow key="4">
-                <TableCell>William Howard</TableCell>
-                <TableCell>Community Manager</TableCell>
-                <TableCell>Vacation</TableCell>
-                <TableCell>
-                    <Button>Edit</Button>
-                </TableCell>
-                </TableRow>
-            </TableBody>
+                )}
+            </TableBody> */}
             </Table>
         </div>
         )
