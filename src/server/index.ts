@@ -1,12 +1,26 @@
 import { TRPCError } from "@trpc/server";
 import { procedure, router } from "./trpc";
 import { auth } from "@/auth";
-import { z } from "zod";
 import { db } from "./db";
 import userRouter from "./routes/user";
+import { menuRouter, subMenuRouter } from "./routes/menu";
+import { productRouter } from "./routes/product";
+import { promotionRouter } from "./routes/promotion";
+import { eventRouter } from "./routes/event";
+import { clientRouter } from "./routes/client";
+import { educationRouter } from "./routes/education";
+import { careerRouter } from "./routes/career";
 
 export const appRouter = router({
   user: userRouter,
+  menu: menuRouter,
+  subMenu: subMenuRouter,
+  product: productRouter,
+  promotion: promotionRouter,
+  event: eventRouter,
+  clientRoute: clientRouter,
+  education: educationRouter,
+  career: careerRouter,
   getTodos: procedure.query(async () => {
     const userId = (await auth())?.user.id;
     if (!userId) {

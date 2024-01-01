@@ -1,4 +1,5 @@
 import "~/styles/globals.css";
+import 'react-quill/dist/quill.snow.css';
 import TrpcProvider from "@/app/_trpc/Provider";
 import { Inter } from "next/font/google";
 import { Providers } from "@/app/providers";
@@ -8,6 +9,8 @@ import Topbar from "@/app/_components/admin/topbar";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import { db } from "~/server/db";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +37,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TrpcProvider BASE_URL="http://localhost:3000">
+        <TrpcProvider BASE_URL={BASE_URL}>
           <Providers>
           <div className="flex h-screen">
               <Sidebar />

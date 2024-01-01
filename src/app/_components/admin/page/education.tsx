@@ -1,55 +1,56 @@
 "use client";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
-import AddUserModalBtn from "../modal-btn/user/add";
-import EditUserModalBtn from "../modal-btn/user/update";
+import AddUserModalBtn from "../modal-btn/education/add";
+import EditUserModalBtn from "../modal-btn/education/update";
 import { useCallback } from "react";
 
-export default function UserPage(){
+export default function Page(){
 
-    const { data:users , error ,isLoading} = trpc.getUsers.useQuery()
-    console.log("user",users)
+    const { data , error ,isLoading} = trpc.education.gets.useQuery()
     
-    type User =  {
-        username: string;
-        email: string | null;
-        status: string | null;
-        id: number;
-    }
+    type Data =  {
+    id: number;
+    description: string | null;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    youtubeLink: string | null;
+  } | undefined
     
     const columns = [
-        {key:"username",label:"USERNAME"},
-        {key:"email",label:"EMAIL"},
-        {key:"status",label:"STATUS"},
+        {key:"name",label:"NAME"},
+        {key:"youtubeLink",label:"YOUTUBE LINK"},
+        {key:"description",label:"DESCRIPTION"},
         {key:"action",label:"ACTION"}
     ];
 
-    const renderCell = useCallback((user: User , columnKey: React.Key) => {
-
-    const cellValue = user[columnKey as keyof User];
+    const renderCell = useCallback((data: Data , columnKey: React.Key) => {
+    if(!data) return null
+    const cellValue = data[columnKey as keyof Data];
     switch (columnKey) {
-      case "username":
+      case "name":
         return (
             <div>
-                {user.username}
+                {data.name}
             </div>
         );
-      case "email":
+      case "youtubeLink":
         return (
           <div>
-            {user.email}
-          </div>  
+            {data.youtubeLink}
+          </div>
         );
-      case "status":
+      case "description":
         return (
           <div>
-            {user.status}
+            {data.description}
           </div>
         );
       case "action":
         return (
           <div className="relative flex items-center gap-2">
-            <EditUserModalBtn id={user.id} />
+            <EditUserModalBtn id={data.id} />
           </div>
         );
       default:
@@ -77,7 +78,7 @@ export default function UserPage(){
                         <TableCell> </TableCell>
                     </TableRow>
                 </TableBody>
-            :<TableBody isLoading={isLoading} items={users}  loadingContent={<Spinner />}>
+            :<TableBody isLoading={isLoading} items={data}  loadingContent={<Spinner />}>
                  {(item) => (
                     <TableRow key={item.id}>
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>} 

@@ -1,8 +1,8 @@
-export default function User(){
+import EventPage from "@/app/_components/admin/page/event";
+
+export default function Page(){
 
     return (
-        <div>
-            USER
-        </div>
+        <EventPage/>
     )
 }

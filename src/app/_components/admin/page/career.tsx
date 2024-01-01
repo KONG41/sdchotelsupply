@@ -1,55 +1,60 @@
 "use client";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
+import type { Prisma } from "@prisma/client";
 import { trpc } from "~/app/_trpc/client";
-import AddUserModalBtn from "../modal-btn/user/add";
-import EditUserModalBtn from "../modal-btn/user/update";
+import EditModalBtn from "../modal-btn/client/update";
 import { useCallback } from "react";
+import AddModalBtn from "../modal-btn/career/add";
 
-export default function UserPage(){
+export default function Page(){
 
-    const { data:users , error ,isLoading} = trpc.getUsers.useQuery()
-    console.log("user",users)
-    
-    type User =  {
-        username: string;
-        email: string | null;
-        status: string | null;
-        id: number;
+    const { data:career , error ,isLoading} = trpc.career.gets.useQuery()
+
+    // not use it because type of image too complicated
+    type Data =  {
+
     }
     
     const columns = [
-        {key:"username",label:"USERNAME"},
-        {key:"email",label:"EMAIL"},
-        {key:"status",label:"STATUS"},
+        {key:"position",label:"POSITION"},
+        {key:"term",label:"TERM"},
+        {key:"openDate",label:"OPEN DATE"},
+        {key:"closeDate",label:"CLOSE DATE"},
         {key:"action",label:"ACTION"}
     ];
 
-    const renderCell = useCallback((user: User , columnKey: React.Key) => {
+    const renderCell = useCallback((data: any , columnKey: React.Key) => {
 
-    const cellValue = user[columnKey as keyof User];
+    const cellValue = data[columnKey as keyof any];
     switch (columnKey) {
-      case "username":
+      case "position":
         return (
             <div>
-                {user.username}
+                {data.position}
             </div>
         );
-      case "email":
+      case "term":
         return (
           <div>
-            {user.email}
-          </div>  
+            {data.term}
+          </div>
         );
-      case "status":
+      case "openDate":
         return (
           <div>
-            {user.status}
+            {data.openDate}
+          </div>
+        );
+      case "closeDate":
+        return (
+          <div>
+            {data.closeDate}
           </div>
         );
       case "action":
         return (
           <div className="relative flex items-center gap-2">
-            <EditUserModalBtn id={user.id} />
+            <EditModalBtn id={data.id} />
           </div>
         );
       default:
@@ -62,9 +67,9 @@ export default function UserPage(){
     return (
         <div className="w-full">
             <div className="mb-3">
-                <AddUserModalBtn />
+                <AddModalBtn />
             </div>
-            <Table aria-label="User table">
+            <Table aria-label="client table">
             <TableHeader columns={columns}>
                 {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
             </TableHeader>
@@ -75,13 +80,14 @@ export default function UserPage(){
                         <TableCell> </TableCell>
                         <TableCell> </TableCell>
                         <TableCell> </TableCell>
+                        <TableCell> </TableCell>
                     </TableRow>
                 </TableBody>
-            :<TableBody isLoading={isLoading} items={users}  loadingContent={<Spinner />}>
+            :<TableBody isLoading={isLoading} items={career}  loadingContent={<Spinner />}>
                  {(item) => (
                     <TableRow key={item.id}>
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>} 
-                    </TableRow>
+                    </TableRow> 
                     )}
             </TableBody>}
             </Table>

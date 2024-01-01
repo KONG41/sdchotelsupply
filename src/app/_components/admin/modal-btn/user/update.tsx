@@ -3,7 +3,7 @@ import { useState , useEffect } from "react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
-import DeleteUserModalBtn from "./deleteuser";
+import DeleteUserModalBtn from "./delete";
 
 
 export default function EditUserModalBtn({id}:{id:number}) {
@@ -94,7 +94,7 @@ export default function EditUserModalBtn({id}:{id:number}) {
                     Cancel
                   </Button>
                   <Button color="primary" onPress={hanldeEditUser}>
-                    Update 
+                    Save 
                   </Button>
                 </div>
               </ModalFooter>
