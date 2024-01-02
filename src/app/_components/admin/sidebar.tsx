@@ -9,7 +9,7 @@ export default function AdminSidebar(){
         <Menu>
             <MenuItem component={<Link href={"/dashboard/user"} />}>User</MenuItem>
             <MenuItem component={<Link href="/dashboard/menu"/>}>Menu</MenuItem>
-            <MenuItem component={<Link href="/dashboard/products"/>}>Products</MenuItem>
+            <MenuItem component={<Link href="/dashboard/product"/>}>Product</MenuItem>
             <MenuItem component={<Link href="/dashboard/promotion"/>}>Promotion</MenuItem>
             <MenuItem component={<Link href="/dashboard/event"/>}>Event</MenuItem>
             <MenuItem component={<Link href="/dashboard/client"/>}>Client</MenuItem>

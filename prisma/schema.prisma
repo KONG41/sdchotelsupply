@@ -6,9 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider     = "mysql"
-    url          = env("DATABASE_URL")
-    relationMode = "prisma"
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+    // relationMode = "prisma"
 }
 
 model Post {
@@ -26,8 +26,100 @@ model User {
     username  String   @unique
     password  String?
     email     String?
-    role      String?
+    role      String?  @default("user")
     status    String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+model Menu {
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    status      String?
+    description String?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    subMenus    SubMenu[]
+
+    @@index([name])
+}
+
+model SubMenu {
+    id          Int       @id @default(autoincrement())
+    name        String    @unique
+    status      String?
+    description String?
+    parentId    Int?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    products    Product[]
+    parent      Menu?     @relation(fields: [parentId], references: [id])
+
+    @@index([name])
+}
+
+model Product {
+    id          Int      @id @default(autoincrement())
+    name        String
+    status      String?
+    description String?  @db.Text
+    price       Float?
+    popular     Boolean?
+    image       Json?
+    categoryId  Int?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    category    SubMenu? @relation(fields: [categoryId], references: [id])
+}
+
+model Promotion {
+    id          Int      @id @default(autoincrement())
+    name        String
+    status      String?
+    description String?  @db.Text
+    image       Json?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Event {
+    id          Int      @id @default(autoincrement())
+    name        String
+    status      String?
+    description String?  @db.Text
+    image       Json?
+    youtubeLink String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Client {
+    id          Int      @id @default(autoincrement())
+    name        String
+    year        String?
+    description String?  @db.Text
+    image       Json?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Education {
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String?  @db.Text
+    youtubeLink String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}
+
+model Career {
+    id          Int      @id @default(autoincrement())
+    position    String
+    term        String?
+    openDate    String?
+    closeDate   String?
+    description String?  @db.Text
+    image       Json?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }

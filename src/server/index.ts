@@ -1,10 +1,26 @@
 import { TRPCError } from "@trpc/server";
 import { procedure, router } from "./trpc";
 import { auth } from "@/auth";
-import { z } from "zod";
 import { db } from "./db";
+import userRouter from "./routes/user";
+import { menuRouter, subMenuRouter } from "./routes/menu";
+import { productRouter } from "./routes/product";
+import { promotionRouter } from "./routes/promotion";
+import { eventRouter } from "./routes/event";
+import { clientRouter } from "./routes/client";
+import { educationRouter } from "./routes/education";
+import { careerRouter } from "./routes/career";
 
 export const appRouter = router({
+  user: userRouter,
+  menu: menuRouter,
+  subMenu: subMenuRouter,
+  product: productRouter,
+  promotion: promotionRouter,
+  event: eventRouter,
+  clientRoute: clientRouter,
+  education: educationRouter,
+  career: careerRouter,
   getTodos: procedure.query(async () => {
     const userId = (await auth())?.user.id;
     if (!userId) {
@@ -20,33 +36,11 @@ export const appRouter = router({
     // });
     return { message: "Hello world" };
   }),
-  addUser: procedure
-    .input(
-      z.object({
-        username: z.string(),
-        role: z
-          .string()
-          .refine((value) => value === "admin" || value === "editor", {
-            message: "role must be an admin or editor",
-          }),
-      }),
-    )
-    .mutation(async (opts) => {
-      const { username, role } = opts.input;
-      const newUser = await db.user.create({
-        data: {
-          username,
-          role,
-        },
-      });
-      return newUser;
-    }),
   getUsers: procedure.query(async () => {
     const users = await db.user.findMany({
-      select: { id: true, username: true, role: true, status: true },
+      select: { id: true, username: true, email: true, status: true },
     });
     return users;
   }),
 });
-
 export type AppRouter = typeof appRouter;

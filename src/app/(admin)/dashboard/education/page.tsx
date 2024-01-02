@@ -1,8 +1,7 @@
-export default function User(){
+import EducationPage from "@/app/_components/admin/page/education";
+export default function Page(){
 
     return (
-        <div>
-            USER
-        </div>
+        <EducationPage/>
     )
 }
