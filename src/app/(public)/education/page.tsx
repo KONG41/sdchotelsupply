@@ -3,6 +3,7 @@ import Image from "next/image";
 import education_cover from "~/assets/education_cover.jpg";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import ContactUs from "~/app/_components/ContactUs";
+import CoverPage from "~/app/_components/CoverPage";
 
 const Education = () => {
   const list = [
@@ -51,20 +52,11 @@ const Education = () => {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="relative h-[500px] w-full bg-slate-700">
-        <Image
-          src={education_cover}
-          alt="education_cover"
-          className="h-full w-full object-cover"
-        />
-        <div className="absolute bottom-0 flex h-[50%] w-full flex-col text-white">
-          <h1 className="text-center text-[36px]">Education</h1>
-        </div>
-      </div>
+    <main className="flex flex-col">
+      <CoverPage src={education_cover} title="Education" navigation={true} />
 
-      <div className="relative h-[250px] w-full bg-white">
-        <div className="absolute bottom-0 flex w-full flex-col text-white">
+      <div className="relative my-10 h-full w-full bg-white">
+        <div className="my-20 flex w-full flex-col text-white">
           <h1 className="text-center text-[36px] text-[#333333]">
             Housekeeping Class
           </h1>
@@ -75,29 +67,29 @@ const Education = () => {
             we have received praise from customers all over the world.
           </p>
         </div>
-      </div>
 
-      <div className="mx-28 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-        {list.map((item, index) => (
-          <Card shadow="sm" key={index} isPressable>
-            <CardBody className="overflow-visible p-0">
-              <Image
-                style={{ boxShadow: "sm", borderRadius: "lg" }}
-                width={100}
-                height={100}
-                alt={item.title}
-                className="h-[250px] w-full object-cover"
-                src={item.img}
-              />
-            </CardBody>
-            <CardFooter className="flex-col items-start text-small">
-              <b className="my-1 mr-3 w-full truncate">{item.title}</b>
-              <p className="my-2 text-start text-default-500">
-                {item.subtitle}
-              </p>
-            </CardFooter>
-          </Card>
-        ))}
+        <div className="mx-28 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          {list.map((item, index) => (
+            <Card shadow="sm" key={index} isPressable>
+              <CardBody className="overflow-visible p-0">
+                <Image
+                  style={{ boxShadow: "sm", borderRadius: "lg" }}
+                  width={100}
+                  height={100}
+                  alt={item.title}
+                  className="h-[250px] w-full object-cover"
+                  src={item.img}
+                />
+              </CardBody>
+              <CardFooter className="flex-col items-start text-small">
+                <b className="my-1 mr-3 w-full truncate">{item.title}</b>
+                <p className="my-2 text-start text-default-500">
+                  {item.subtitle}
+                </p>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
 
       <ContactUs />
