@@ -4,6 +4,7 @@ import education_cover from "~/assets/education_cover.jpg";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
+import QuoteCard from "~/app/_components/QuoteCard";
 
 const Education = () => {
   const list = [
@@ -90,6 +91,15 @@ const Education = () => {
             </Card>
           ))}
         </div>
+
+        <QuoteCard
+          title="Think of Hotel Business, Think of SDC"
+          subtitle=" SDC Hotel Supply was established in 2008. Until now SDC work closely
+            with all 5 stars hotels in Cambodia.Our main supplies are Linen,
+            Towels, Amenities, Bed+Mattresses, Hotel appliances, and Room
+            accessories. Because of hospitality growing faster in Cambodia with
+            the short standard, so this is the reason for SDC company running."
+        />
       </div>
 
       <ContactUs />
