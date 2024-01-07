@@ -1,5 +1,3 @@
-import {auth} from "@/auth"
-import DashboardPage from "@/app/_components/admin/page/dashboardpage";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
@@ -10,7 +8,5 @@ export default async function Page() {
   //   redirect("/")
   // }
 
-  return(
-    <DashboardPage/>
-  )
+  return redirect("/dashboard/user")
 }

@@ -17,8 +17,13 @@ import {
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";
+import { trpc } from "@/app/_trpc/client";
+import {imageURL} from "@/lib/utils";
 
 const Event = () => {
+
+  const { data } = trpc.event.gets.useQuery();
+
   const list = [
     {
       title:
@@ -101,7 +106,7 @@ const Event = () => {
         </div>
 
         <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {list.map((item, index) => (
+          {data&&data.map((item, index) => (
             <Card shadow="sm" key={index}>
               <CardBody
                 className="overflow-visible p-0"
@@ -111,20 +116,17 @@ const Event = () => {
                   style={{ boxShadow: "sm", borderRadius: "lg" }}
                   width={100}
                   height={100}
-                  alt={item.title}
+                  alt={item.name}
                   className="h-[250px] w-full object-cover"
-                  src={item.img}
+                  src={item.image?imageURL(item.image):education_cover}
                 />
               </CardBody>
               <CardFooter className="flex-col items-start text-small">
-                <b className="my-1 mr-3 w-full truncate">{item.title}</b>
-                <p className="my-2 text-start text-default-500">
-                  {item.subtitle}
-                </p>
-
+                <b className="my-1 mr-3 w-full truncate">{item.name}</b>
+                <p className="my-2 text-start text-default-500" dangerouslySetInnerHTML={{ __html: item.description}} />
                 <div className="ml-auto flex gap-1">
                   <p className="text-small font-semibold text-default-400">
-                    {item.date}
+                    {item.createdAt}
                   </p>
                 </div>
               </CardFooter>

@@ -101,7 +101,7 @@ const handleUpload = async () => {
     return (
     <>
       <Button onPress={onOpen}>Add Career</Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
+      <Modal size="5xl" className="h-[800px]" isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (
             <>

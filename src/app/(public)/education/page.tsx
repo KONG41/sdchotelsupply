@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import education_cover from "~/assets/education_cover.jpg";
@@ -5,8 +6,13 @@ import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";
+import { trpc } from "@/app/_trpc/client";
 
 const Education = () => {
+
+  const { data } = trpc.education.gets.useQuery();
+
+
   const list = [
     {
       title:
@@ -70,22 +76,23 @@ const Education = () => {
         </div>
 
         <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {list.map((item, index) => (
+          {/* {!data && <div>Loading...</div>} */}
+          {data&&data.map((item, index) => (
             <Card shadow="sm" key={index} isPressable>
               <CardBody className="overflow-visible p-0">
                 <Image
                   style={{ boxShadow: "sm", borderRadius: "lg" }}
                   width={100}
                   height={100}
-                  alt={item.title}
+                  alt={item.name}
                   className="h-[250px] w-full object-cover"
-                  src={item.img}
+                  src={education_cover}
                 />
               </CardBody>
               <CardFooter className="flex-col items-start text-small">
-                <b className="my-1 mr-3 w-full truncate">{item.title}</b>
+                <b className="my-1 mr-3 w-full truncate">{item.name}</b>
                 <p className="my-2 text-start text-default-500">
-                  {item.subtitle}
+                  {item.description}
                 </p>
               </CardFooter>
             </Card>

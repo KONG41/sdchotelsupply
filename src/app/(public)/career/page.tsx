@@ -18,7 +18,7 @@ import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";
 
-const Carrie = () => {
+const Page = () => {
   const list = [
     {
       thumbnail: education_cover,
@@ -134,4 +134,4 @@ const Carrie = () => {
   );
 };
 
-export default Carrie;
+export default Page;
