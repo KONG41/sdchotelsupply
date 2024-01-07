@@ -1,52 +1,61 @@
-'use client'
+"use client";
 
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, NavbarMenuToggle, NavbarMenu, NavbarMenuItem} from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Button,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from "@nextui-org/react";
 import logo from "~/assets/logo.png";
-import Image from 'next/image'
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-const Header = ()=> {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const menuItems = [
     {
       menu: "Home",
       url: "/",
-      submenu:[]
+      submenu: [],
     },
     {
       menu: "About",
-      url:"/about",
-      submenu:[]
+      url: "/about",
+      submenu: [],
     },
     {
       menu: "Product",
       url: "/product",
-      submenu:[
+      submenu: [
         {
-          menu:"Hotel Products",
-          url: "/hotel_products"
+          menu: "Hotel Products",
+          url: "/hotel_products",
         },
         {
           menu: "Home Products",
-          url: "/home_products"
-        }
-      ]
+          url: "/home_products",
+        },
+      ],
     },
     {
       menu: "Event",
-      url: "/event"
+      url: "/event",
     },
     {
       menu: "Carries",
-      url: "/carrie"
+      url: "/carrie",
     },
     {
       menu: "Education",
-      url: "/education"
-    }
-  ]
+      url: "/education",
+    },
+  ];
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
       <NavbarContent>
@@ -55,25 +64,35 @@ const Header = ()=> {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Image src={logo} alt="logo png" className="w-[150px]"/>
+          <Image src={logo} alt="logo png" className="w-[150px]" />
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4 uppercase" justify="center">
-        {
-          menuItems.map((item,index)=>(
-            <NavbarItem key={`${item}-${index}`}>
-              <Link className={pathname === item.url ? "text-[#DB2230]": "text-[black]"} href={item.url}>
-                {item.menu}
-              </Link>
-            </NavbarItem>
-          ))
-        }
-        
+      <NavbarContent
+        className="hidden gap-4 uppercase sm:flex"
+        justify="center"
+      >
+        {menuItems.map((item, index) => (
+          <NavbarItem key={`${item}-${index}`}>
+            <Link
+              className={
+                pathname === item.url ? "text-[#DB2230]" : "text-[black]"
+              }
+              href={item.url}
+            >
+              {item.menu}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} color="primary" href="/contact" variant="flat">
+          <Button
+            as={Link}
+            className="bg-[#DB2230] text-white"
+            href="/contact"
+            variant="flat"
+          >
             Contact us
           </Button>
         </NavbarItem>
@@ -82,7 +101,9 @@ const Header = ()=> {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
-              className={`w-full ${pathname === item.url ? "text-[#DB2230]" : "text-black"}`}
+              className={`w-full ${
+                pathname === item.url ? "text-[#DB2230]" : "text-black"
+              }`}
               href={item.url}
             >
               {item.menu}
@@ -92,6 +113,6 @@ const Header = ()=> {
       </NavbarMenu>
     </Navbar>
   );
-}
+};
 
 export default Header;
