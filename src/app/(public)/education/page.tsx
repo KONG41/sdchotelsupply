@@ -69,7 +69,7 @@ const Education = () => {
           </p>
         </div>
 
-        <div className="mx-28 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+        <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
           {list.map((item, index) => (
             <Card shadow="sm" key={index} isPressable>
               <CardBody className="overflow-visible p-0">
