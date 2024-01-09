@@ -18,65 +18,24 @@ import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";
 import { trpc } from "@/app/_trpc/client";
-import {imageURL} from "@/lib/utils";
+import { imageURL } from "@/lib/utils";
+import empty from "~/assets/empty.svg";
+import { Event } from "@prisma/client";
+import { format } from "date-fns";
+import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
+
+const formatDate = (date: any) => {
+  return format(date, "dd MMM, yyyy");
+};
 
 const Event = () => {
-
-  const { data } = trpc.event.gets.useQuery();
-
-  const list = [
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-      date: "04 Jan, 2024",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-      date: "04 Jan, 2024",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-      date: "04 Jan, 2024",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-      date: "04 Jan, 2024",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-      date: "04 Jan, 2024",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-      date: "04 Jan, 2024",
-    },
-  ];
+  const { data, isLoading } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = React.useState("blur");
+
+  // State to store the data for the modal
+  const [modalData, setModalData] = React.useState<Event>();
 
   const handleOpenDetail = (item: any, backdrop: string) => {
     console.log("backdrop", backdrop);
@@ -84,9 +43,6 @@ const Event = () => {
     setModalData(item);
     onOpen();
   };
-
-  // State to store the data for the modal
-  const [modalData, setModalData] = React.useState<any>(null);
 
   return (
     <main className="flex flex-col">
@@ -105,52 +61,86 @@ const Event = () => {
           </p>
         </div>
 
-        <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {data&&data.map((item, index) => (
-            <Card shadow="sm" key={index}>
-              <CardBody
-                className="overflow-visible p-0"
-                onClick={() => handleOpenDetail(item, "blur")}
-              >
+        <div>{isLoading && <LoadingAnimation />}</div>
+
+        <div>
+          {data && data.length === 0 && (
+            <div className="flex flex-col items-center justify-center">
+              {/* Directly render the SVG here */}
+              <center>
                 <Image
-                  style={{ boxShadow: "sm", borderRadius: "lg" }}
-                  width={100}
-                  height={100}
-                  alt={item.name}
-                  className="h-[250px] w-full object-cover"
-                  src={item.image?imageURL(item.image):education_cover}
+                  alt="empty"
+                  className="h-1/2 w-1/2 rounded-lg shadow-sm"
+                  src={empty}
                 />
-              </CardBody>
-              <CardFooter className="flex-col items-start text-small">
-                <b className="my-1 mr-3 w-full truncate">{item.name}</b>
-                <p className="my-2 text-start text-default-500" dangerouslySetInnerHTML={{ __html: item.description}} />
-                <div className="ml-auto flex gap-1">
-                  <p className="text-small font-semibold text-default-400">
-                    {item.createdAt}
-                  </p>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+              </center>
+            </div>
+          )}
         </div>
 
-        <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
+        <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          {data &&
+            data.map((item, index) => (
+              <Card shadow="sm" key={index}>
+                <CardBody
+                  className="overflow-visible p-0"
+                  onClick={() => handleOpenDetail(item, "blur")}
+                >
+                  <Image
+                    style={{ boxShadow: "sm", borderRadius: "lg" }}
+                    width={100}
+                    height={100}
+                    alt={item.name}
+                    className="h-[250px] w-full object-cover"
+                    src={item.image ? imageURL(item.image) : education_cover}
+                  />
+                </CardBody>
+                <CardFooter className="flex-col items-start text-small">
+                  <b className="my-1 mr-3 w-full truncate">{item.name}</b>
+                  <p
+                    className="my-2 text-start text-default-500"
+                    dangerouslySetInnerHTML={{
+                      __html: item.description as string,
+                    }}
+                  />
+                  <div className="ml-auto flex gap-1">
+                    <p className="text-small font-semibold text-default-400">
+                      {formatDate(item.createdAt)}
+                    </p>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+        </div>
+
+        <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl">
           <ModalContent>
             {() => (
               <>
-                <ModalHeader className="gap- m-3 flex flex-col">
-                  <Image
-                    width={100}
-                    height={100}
-                    alt={modalData && modalData.title}
-                    className="h-full w-full rounded-lg object-cover"
-                    src={modalData && modalData.img}
-                  />
-
-                  <div className="mt-3">{modalData && modalData.title}</div>
-                </ModalHeader>
+                <center>
+                  <ModalHeader className="m-3 flex h-1/2 w-1/2 flex-col items-center justify-center ">
+                    <Image
+                      width={100}
+                      height={100}
+                      alt={modalData && modalData.title}
+                      className="h-full w-full items-center justify-center rounded-lg object-cover"
+                      src={
+                        modalData && modalData.image
+                          ? imageURL(modalData.image)
+                          : education_cover
+                      }
+                    />
+                    <div className="mt-3">
+                      <p>{modalData && modalData.title}</p>
+                    </div>
+                  </ModalHeader>
+                </center>
                 <ModalBody className="m-3 mb-3">
-                  <p>{modalData && modalData.subtitle}</p>
+                  <b className="my-1 mr-3 w-full truncate">{modalData.name}</b>
+
+                  <p
+                    dangerouslySetInnerHTML={{ __html: modalData.description }}
+                  />
                 </ModalBody>
               </>
             )}

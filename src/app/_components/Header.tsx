@@ -49,7 +49,7 @@ const Header = () => {
     },
     {
       menu: "Carries",
-      url: "/carrie",
+      url: "/career",
     },
     {
       menu: "Education",
