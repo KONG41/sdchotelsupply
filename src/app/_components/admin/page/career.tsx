@@ -2,7 +2,7 @@
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
 import type { Prisma } from "@prisma/client";
 import { trpc } from "~/app/_trpc/client";
-import EditModalBtn from "../modal-btn/client/update";
+import EditModalBtn from "../modal-btn/career/update";
 import { useCallback } from "react";
 import AddModalBtn from "../modal-btn/career/add";
 
