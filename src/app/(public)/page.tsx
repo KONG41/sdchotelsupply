@@ -4,17 +4,8 @@ import Image from "next/image";
 import home_product from "~/assets/home_product.png";
 import hotel_product from "~/assets/hotel_product.png";
 import PromoSlide from "../_components/PromoSlide";
-import client01 from "~/assets/client01.png";
-import client02 from "~/assets/client02.png";
-import client03 from "~/assets/client03.png";
-import client04 from "~/assets/client04.png";
-import client05 from "~/assets/client05.png";
-import client06 from "~/assets/client06.png";
-import client07 from "~/assets/client07.png";
-import client08 from "~/assets/client08.png";
-import event01 from "~/assets/event01.png";
-import event02 from "~/assets/event02.png";
-import event03 from "~/assets/event03.png";
+import Client from "../_components/public/Client";
+import EventHome from "../_components/public/EventHome";
 import ContactUs from "../_components/ContactUs";
 export default function HomePage() {
   return (
@@ -77,147 +68,12 @@ export default function HomePage() {
         <p className="text-center text-gray-500">
           Check out our global reach within 28 years of relentless striving.
         </p>
-        <div className="mt-12 gap-7">
-          <div className="flex flex-row flex-wrap justify-around">
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client01}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client02}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client03}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client04}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client05}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client06}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client07}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-3 h-[338px] w-[340px] border border-gray-200 p-3">
-              <Image
-                src={client08}
-                alt="client01"
-                className="h-[198px] w-full"
-              />
-              <div className="mt-[20px] text-center">
-                <p className="py-1 text-[20px]">2007</p>
-                <p className="py-1 text-[15px] text-gray-500">
-                  InterContinental Hotels Group
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Client/>
       </div>
 
       <div className="container mx-auto py-24">
         <h1 className="text-center text-[39px]">Our Events</h1>
-        <div className="my-12 gap-7">
-          <div className="flex flex-row">
-            <div className="h-[400px] w-1/3 p-3">
-              <Image src={event01} alt="event01" className="h-[350px] w-full" />
-              <h1 className="py-3 text-center text-[20px]">
-                HOUSEKEEPING TRAINING (2023)
-              </h1>
-            </div>
-
-            <div className="h-[400px] w-1/3 p-3">
-              <Image src={event02} alt="event01" className="h-[350px] w-full" />
-              <h1 className="py-3 text-center text-[20px]">SDC Expedition</h1>
-            </div>
-
-            <div className="h-[400px] w-1/3 p-3">
-              <Image src={event03} alt="event01" className="h-[350px] w-full" />
-              <h1 className="py-3 text-center text-[20px]">
-                Cambodia Second International ...
-              </h1>
-            </div>
-          </div>
-        </div>
+        <EventHome />
         <div className="my-7 flex justify-center">
           <Link
             href="/event"

@@ -7,9 +7,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '~/styles/home.css';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
-import promotion01 from '~/assets/promotion01.png';
-import promotion02 from '~/assets/promotion02.png';
+import {imageURL} from "@/lib/utils"
+import { trpc } from '../_trpc/client';
 const PromoSlide = () => {
+  const {data} = trpc.promotion.gets.useQuery()
   return (
     <div className='w-full h-[600px]'>
       <Swiper
@@ -27,8 +28,12 @@ const PromoSlide = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="w-full h-full"
       >
-        <SwiperSlide><Image src={promotion01} alt='promotion01' className='!object-contain'/></SwiperSlide>
-        <SwiperSlide><Image src={promotion02} alt="promotion02" className='!object-contain'/></SwiperSlide>
+        {
+          data && data.map((item,index)=>
+            item.status == 'active' && 
+            <SwiperSlide><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
+          )
+        }
       </Swiper>
     </div>
   )

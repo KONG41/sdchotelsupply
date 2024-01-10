@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import {trpc} from "@/app/_trpc/client"
 import {
   Navbar,
   NavbarBrand,
@@ -18,6 +19,8 @@ import Link from "next/link";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
+  const { data } = trpc.menu.gets.useQuery()
+  console.log('Menu',data)
   const menuItems = [
     {
       menu: "Home",
@@ -64,7 +67,7 @@ const Header = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Image src={logo} alt="logo png" className="w-[150px]" />
+          <Link href="/"><Image src={logo} alt="logo png" className="w-[150px]" /></Link>
         </NavbarBrand>
       </NavbarContent>
 
@@ -72,18 +75,20 @@ const Header = () => {
         className="hidden gap-4 uppercase sm:flex"
         justify="center"
       >
-        {menuItems.map((item, index) => (
-          <NavbarItem key={`${item}-${index}`}>
-            <Link
-              className={
-                pathname === item.url ? "text-[#DB2230]" : "text-[black]"
-              }
-              href={item.url}
-            >
-              {item.menu}
-            </Link>
-          </NavbarItem>
-        ))}
+        { data && data.map((item, index) => 
+          item.status == "active" && (
+            <NavbarItem key={`${item}-${index}`}>
+              <Link
+                className={
+                  pathname === item.description ? "text-[#DB2230]" : "text-[black]"
+                }
+                href={item.description}
+              >
+                {item.name}
+              </Link>
+            </NavbarItem>
+          )
+        )}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
