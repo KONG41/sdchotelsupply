@@ -7,56 +7,11 @@ import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";
 import { trpc } from "@/app/_trpc/client";
+import empty from "~/assets/empty.svg";
+import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
 
 const Education = () => {
-
-  const { data } = trpc.education.gets.useQuery();
-
-
-  const list = [
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-    },
-    {
-      title:
-        "Cambodia Second International Trade has a modern and elegant aesthetic with clear branding.",
-      img: education_cover,
-      subtitle:
-        "The Shiloh Events website has a modern and elegant aesthetic with clear branding. The clean design of this website is easy to navigate or browse and provides all the information for visitors.",
-    },
-  ];
+  const { data, isLoading } = trpc.education.gets.useQuery();
 
   return (
     <main className="flex flex-col">
@@ -75,28 +30,49 @@ const Education = () => {
           </p>
         </div>
 
+        <div>{isLoading && <LoadingAnimation />}</div>
+
+        <div>
+          {data && data.length === 0 && (
+            <div className="flex flex-col items-center justify-center">
+              {/* Directly render the SVG here */}
+              <center>
+                <Image
+                  alt="empty"
+                  className="h-1/2 w-1/2 rounded-lg shadow-sm"
+                  src={empty}
+                />
+              </center>
+            </div>
+          )}
+        </div>
+
         <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
           {/* {!data && <div>Loading...</div>} */}
-          {data&&data.map((item, index) => (
-            <Card shadow="sm" key={index} isPressable>
-              <CardBody className="overflow-visible p-0">
-                <Image
-                  style={{ boxShadow: "sm", borderRadius: "lg" }}
-                  width={100}
-                  height={100}
-                  alt={item.name}
-                  className="h-[250px] w-full object-cover"
-                  src={education_cover}
-                />
-              </CardBody>
-              <CardFooter className="flex-col items-start text-small">
-                <b className="my-1 mr-3 w-full truncate">{item.name}</b>
-                <p className="my-2 text-start text-default-500">
-                  {item.description}
-                </p>
-              </CardFooter>
-            </Card>
-          ))}
+
+          {data &&
+            data.map((item, index) => (
+              <Card shadow="sm" key={index} isPressable>
+                <CardBody className="overflow-visible p-0">
+                  <Image
+                    style={{ boxShadow: "sm", borderRadius: "lg" }}
+                    width={100}
+                    height={100}
+                    alt={item.name}
+                    className="h-[250px] w-full object-cover"
+                    src={education_cover}
+                  />
+                </CardBody>
+                <CardFooter className="flex-col items-start text-small">
+                  <b className="my-1 mr-3 w-full truncate text-start">
+                    {item.name}
+                  </b>
+                  <p className="my-2 flex-nowrap overflow-hidden text-start text-default-500">
+                    {item.description}
+                  </p>
+                </CardFooter>
+              </Card>
+            ))}
         </div>
 
         <QuoteCard

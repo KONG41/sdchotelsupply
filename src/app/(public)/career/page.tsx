@@ -7,8 +7,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
   useDisclosure,
   Card,
   CardBody,
@@ -17,19 +15,19 @@ import {
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";
+import empty from "~/assets/empty.svg";
+import { trpc } from "@/app/_trpc/client";
+import { Career } from "@prisma/client";
+import { imageURL } from "~/lib/utils";
+import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
 
 const Page = () => {
-  const list = [
-    {
-      thumbnail: education_cover,
-      position: "Sales Manager",
-      term: "Full Time",
-      open: "Dec 12,2023 - Dec 30,2023",
-    },
-  ];
+  const { data, isLoading } = trpc.career.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = React.useState("blur");
+  // State to store the data for the modal
+  const [modalData, setModalData] = React.useState<Career>();
 
   const handleOpenDetail = (item: any, backdrop: string) => {
     console.log("backdrop", backdrop);
@@ -37,9 +35,6 @@ const Page = () => {
     setModalData(item);
     onOpen();
   };
-
-  // State to store the data for the modal
-  const [modalData, setModalData] = React.useState<any>(null);
 
   return (
     <main className="flex flex-col">
@@ -58,49 +53,71 @@ const Page = () => {
           </p>
         </div>
 
-        <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {list.map((item, index) => (
-            <Card shadow="sm" key={index}>
-              <CardBody
-                className="overflow-visible p-0"
-                onClick={() => handleOpenDetail(item, "blur")}
-              >
+        <div>{isLoading && <LoadingAnimation />}</div>
+
+        <div>
+          {data && data.length === 0 && (
+            <div className="flex flex-col items-center justify-center">
+              {/* Directly render the SVG here */}
+              <center>
                 <Image
-                  style={{ boxShadow: "sm", borderRadius: "lg" }}
-                  width={100}
-                  height={100}
-                  alt={item.position}
-                  className="h-[250px] w-full object-cover"
-                  src={item.thumbnail}
+                  alt="empty"
+                  className="h-1/2 w-1/2 rounded-lg shadow-sm"
+                  src={empty}
                 />
-              </CardBody>
-              <CardFooter className="flex-col items-start text-small">
-                <div className="my-1 flex gap-1">
-                  <p className="text-small font-semibold text-default-400">
-                    Position:
-                  </p>
-                  <p className="text-small text-default-400">{item.position}</p>
-                </div>
-
-                <div className="my-1 flex gap-1">
-                  <p className="text-small font-semibold text-default-400">
-                    Term:
-                  </p>
-                  <p className="text-small text-default-400">{item.term}</p>
-                </div>
-
-                <div className="my-1 flex gap-1">
-                  <p className="text-small font-semibold text-default-400">
-                    Open:
-                  </p>
-                  <p className="text-small text-default-400">{item.open}</p>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+              </center>
+            </div>
+          )}
         </div>
 
-        <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
+        <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          {data &&
+            data.map((item, index) => (
+              <Card shadow="sm" key={index}>
+                <CardBody
+                  className="overflow-visible p-0"
+                  onClick={() => handleOpenDetail(item, "blur")}
+                >
+                  <Image
+                    style={{ boxShadow: "sm", borderRadius: "lg" }}
+                    width={100}
+                    height={100}
+                    alt={item.position}
+                    className="h-[250px] w-full object-cover"
+                    src={item.image ? imageURL(item.image) : education_cover}
+                  />
+                </CardBody>
+                <CardFooter className="flex-col items-start text-small">
+                  <div className="my-1 flex gap-1">
+                    <p className="text-small font-semibold text-default-400">
+                      Position:
+                    </p>
+                    <p className="text-small text-default-400">
+                      {item.position}
+                    </p>
+                  </div>
+
+                  <div className="my-1 flex gap-1">
+                    <p className="text-small font-semibold text-default-400">
+                      Term:
+                    </p>
+                    <p className="text-small text-default-400">{item.term}</p>
+                  </div>
+
+                  <div className="my-1 flex gap-1">
+                    <p className="text-small font-semibold text-default-400">
+                      Open:
+                    </p>
+                    <p className="text-small text-default-400">
+                      {item.openDate} - {item.closeDate}
+                    </p>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+        </div>
+
+        <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl">
           <ModalContent>
             {() => (
               <>
@@ -108,11 +125,12 @@ const Page = () => {
                   <div className="mt-3">{modalData && modalData.position}</div>
                 </ModalHeader>
                 <ModalBody className="m-3 mb-3">
-                  <p>
-                    Company: SDC Hotel Supply Job type:Full-time job Job
-                    category: Sale OutdoorSalary:NegotiationLocation: Phnom Penh
-                    Job expires in
-                  </p>
+                  {/* <p>{modalData && modalData.description}</p> */}
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: (modalData && modalData.description) as string,
+                    }}
+                  />
                 </ModalBody>
               </>
             )}
