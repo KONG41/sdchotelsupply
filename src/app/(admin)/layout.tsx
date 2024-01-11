@@ -9,6 +9,7 @@ import Topbar from "@/app/_components/admin/topbar";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import { db } from "~/server/db";
+import { signOut } from "next-auth/react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
 
@@ -32,7 +33,7 @@ export default async function RootLayout({
   if(!session){
     redirect("/")
   }
-  const user = await db.user.findUnique({where:{id:Number(session.user.id)},select:{username:true}})
+  const user = await db.user.findUnique({where:{id:Number(session.user.id)},select:{username:true,status:true}})
 
   return (
     <html lang="en">
