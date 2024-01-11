@@ -1,12 +1,11 @@
 'use client'
 import React from 'react'
 import {Image} from "@nextui-org/react";
-import { trpc } from '@/app/_trpc/client'
+import { trpc } from '@/app/_trpc/client' 
 import {imageURL} from "@/lib/utils"
 import Link from 'next/link';
 const AllProducts = () => {
-    const {data}:any = trpc.product.gets.useQuery();
-    console.log(data)
+  const { data , error ,isLoading}:any = trpc.product.gets.useQuery()
   return (
     <div className="container mx-auto">
     <div className='mx-[240px] mt-20 mb-40'>
