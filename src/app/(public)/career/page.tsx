@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import education_cover from "~/assets/education_cover.jpg";
+import notfound_cover from "~/assets/404_notfound.svg";
 import {
   Modal,
   ModalContent,
@@ -72,7 +73,7 @@ const Page = () => {
 
         <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
           {data &&
-            data.map((item, index) => (
+            data.map((item: any, index) => (
               <Card shadow="sm" key={index}>
                 <CardBody
                   className="overflow-visible p-0"
@@ -83,8 +84,8 @@ const Page = () => {
                     width={100}
                     height={100}
                     alt={item.position}
-                    className="h-[250px] w-full object-cover"
-                    src={item.image ? imageURL(item.image) : education_cover}
+                    className="h-72 w-full object-contain"
+                    src={item.image ? imageURL(item.image) : notfound_cover}
                   />
                 </CardBody>
                 <CardFooter className="flex-col items-start text-small">
@@ -124,7 +125,7 @@ const Page = () => {
                 <ModalHeader className="gap- m-3 flex flex-col">
                   <div className="mt-3">{modalData && modalData.position}</div>
                 </ModalHeader>
-                <ModalBody className="m-3 mb-3">
+                <ModalBody className="description m-3 mb-3">
                   {/* <p>{modalData && modalData.description}</p> */}
                   <p
                     dangerouslySetInnerHTML={{

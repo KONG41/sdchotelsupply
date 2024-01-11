@@ -11,7 +11,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import logo from "~/assets/logo.png";
+import logo from "~/assets/logo_t.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
