@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react';
+import React, {useState} from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PageNavigation from '~/app/_components/widgets/PageNavigation'
@@ -10,11 +10,19 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import './swiper.css';
-const ProductDetail = () => {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null)
+import {trpc} from "@/app/_trpc/client";
+const ProductDetail = ({id}:string) => {
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const {data} = trpc.product.gets.useQuery();
+    
+    if(typeof data != 'undefined'){
+      const newData = Object.values(data).filter(user => user.id == id);
+    }
+    
   return (
     <div className='container mx-auto'>
         <PageNavigation/>
+        
         <div>
         <Swiper
         style={{
@@ -27,36 +35,12 @@ const ProductDetail = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="w-full"
       >
+      
         <SwiperSlide>
           <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-        </SwiperSlide>
+     
+       
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}

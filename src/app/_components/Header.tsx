@@ -20,6 +20,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const { data } = trpc.menu.gets.useQuery()
+  
   console.log('Menu',data)
   const menuItems = [
     {

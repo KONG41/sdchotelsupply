@@ -1,10 +1,10 @@
 import React from 'react'
 import ContactUs from '~/app/_components/ContactUs'
 import ProductDetail from '~/app/_components/public/ProductDetail'
-const Detail = () => {
+const Detail = ({params}:{params:{id:string}}) => {
   return (
     <div>
-        <ProductDetail/>
+        <ProductDetail id={params.id}/>
         <ContactUs/>
     </div>
   )
