@@ -2,14 +2,23 @@
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import { Key } from "react";
 import { signOut } from "next-auth/react";
+import type { User } from "@prisma/client"
 
-export default function Topbar({user}:{user:{username:string}|null}){
-     const items = [
-    {
-      key: "logout",
-      label: "Logout",
-    }
-  ];
+type User = {
+    username: string;
+    status: string | null;
+} | null
+
+export default function Topbar({user}:{user:User}){
+
+    if(user?.status !== "active") signOut();
+
+    const items = [
+        {
+        key: "logout",
+        label: "Logout",
+        }
+    ];
 
     const handleAction = (key:Key) => {
         switch(key){

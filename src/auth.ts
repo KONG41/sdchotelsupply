@@ -26,6 +26,9 @@ export const {
         });
         const user = await res.json();
         // console.log("user", user, res.ok);
+        if (res.ok && user.status !== "active") {
+          return null;
+        }
         // If no error and we have user data, return it
         if (res.ok && user) {
           return user;
