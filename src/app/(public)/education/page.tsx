@@ -9,6 +9,7 @@ import QuoteCard from "~/app/_components/QuoteCard";
 import { trpc } from "@/app/_trpc/client";
 import empty from "~/assets/empty.svg";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
+import YouTubePlayer from "~/app/_components/YoutubePlayer";
 
 const Education = () => {
   const { data, isLoading } = trpc.education.gets.useQuery();
@@ -54,13 +55,8 @@ const Education = () => {
             data.map((item, index) => (
               <Card shadow="sm" key={index} isPressable>
                 <CardBody className="overflow-visible p-0">
-                  <Image
-                    style={{ boxShadow: "sm", borderRadius: "lg" }}
-                    width={100}
-                    height={100}
-                    alt={item.name}
-                    className="h-[250px] w-full object-cover"
-                    src={education_cover}
+                  <YouTubePlayer
+                    videoId={item && item.youtubeLink?.split("v=")[1]}
                   />
                 </CardBody>
                 <CardFooter className="flex-col items-start text-small">
