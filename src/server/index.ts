@@ -10,6 +10,8 @@ import { eventRouter } from "./routes/event";
 import { clientRouter } from "./routes/client";
 import { educationRouter } from "./routes/education";
 import { careerRouter } from "./routes/career";
+import { z } from "zod";
+import nodemailer from "nodemailer";
 
 export const appRouter = router({
   user: userRouter,
@@ -42,5 +44,46 @@ export const appRouter = router({
     });
     return users;
   }),
+  contactSubmit: procedure
+    .input(
+      z.object({
+        name: z.string(),
+        email: z.string(),
+        phone: z.string(),
+        message: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { name, email, phone, message } = input;
+      const transporter = nodemailer.createTransport({
+        host: "mail.sdchotelsupply.com",
+        port: 465,
+        auth: {
+          user: "contact@sdchotelsupply.com",
+          pass: "y~dh5}kRpBi9",
+        },
+      });
+      // verify connection configuration
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log(error);
+          return false;
+        }
+      });
+
+      const info = await transporter.sendMail({
+        from: "contact@sdchotelsupply.com",
+        to: "contact@sdchotelsupply.com",
+        subject: "Contact Us",
+        html: `<div>
+        <p>Name: ${name}</p>
+        <p>Email: ${email}</p>
+        <p>Phone: ${phone}</p>
+        <p>Message: ${message}</p>
+        </div>`,
+      });
+
+      return true;
+    }),
 });
 export type AppRouter = typeof appRouter;
