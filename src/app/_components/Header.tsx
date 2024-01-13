@@ -12,7 +12,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-import logo from "~/assets/logo.png";
+import logo from "~/assets/logo_t.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -20,6 +20,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const { data } = trpc.menu.gets.useQuery()
+  
   console.log('Menu',data)
   const menuItems = [
     {
