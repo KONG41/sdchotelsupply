@@ -135,7 +135,7 @@ const handleUpload = async () => {
                   </SelectItem>
                 </Select>
                 <Input label="price" value={price} onChange={(e)=>setPrice(e.target.value)}/>
-                <ImageUploader selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles} limit={4}/>
+                <ImageUploader selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles} limit={99}/>
                 <div className="text-sm text-gray-500">
                   Descsription
                 </div>
