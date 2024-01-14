@@ -14,9 +14,9 @@ import certificate04 from "~/assets/certificate04.jpg";
 const About = () => {
   return (
     <div>
-      <CoverPage src={about_cv} title="About Us" navigation={true} />
-      <div className="container mx-auto">
-        <div className="mx-[240px] mb-40 mt-20">
+      <CoverPage src={about_cv} title="About Us" navigation={false} />
+      <div className="container max-w-[1268px] mx-auto">
+        <div className="mb-40 mt-20">
           <h1 className="my-3 text-[39px]">About SDC Hotel Supply</h1>
           <p className="text-[21px]">(Think of Hotel Business, Think of SDC)</p>
           <div className="my-3 text-[18px] font-light text-gray-500">
@@ -33,7 +33,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="mx-[240px] my-14 flex h-[699px] flex-row">
+        <div className="my-14 flex h-[699px] flex-row">
           <div className="relative h-full w-5/12 p-3">
             <p className="absolute top-0 z-10 text-[15px] text-[#D60054]">
               SDC HOTEL SUPPLY
@@ -77,7 +77,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="mx-[240px] my-14 flex h-[499px] flex-row-reverse">
+        <div className="my-14 flex h-[499px] flex-row-reverse">
           <div className="relative h-full w-4/12 p-3">
             <p className="absolute top-0 z-10 text-[15px] text-[#D60054]">
               SDC HOTEL SUPPLY
@@ -129,7 +129,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="mx-[240px] my-14 flex h-[499px] flex-row">
+        <div className="my-14 flex h-[499px] flex-row">
           <div className="relative h-full w-4/12 p-3">
             <p className="absolute top-0 z-10 text-[15px] text-[#D60054]">
               SDC HOTEL SUPPLY
@@ -166,7 +166,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className="mx-[240px] my-14 flex flex-col">
+        <div className="my-14 flex flex-col">
           <h1 className="mb-32 mt-20 text-center text-[36px] uppercase">
             Certifications
           </h1>

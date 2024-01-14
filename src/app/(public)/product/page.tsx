@@ -11,7 +11,7 @@ const Product = () => {
  
   return (
     <div>
-      <CoverPage src={product_cv} title="Products" navigation={true}/>
+      <CoverPage src={product_cv} title="Products" navigation={false}/>
       <AllProducts />
       <ContactUs/>
     </div>

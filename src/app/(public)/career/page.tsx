@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React,{useState} from "react";
 import Image from "next/image";
 import education_cover from "~/assets/education_cover.jpg";
 import notfound_cover from "~/assets/404_notfound.svg";
@@ -12,6 +12,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  ModalProps
 } from "@nextui-org/react";
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
@@ -29,7 +30,7 @@ const Page = () => {
   const [backdrop, setBackdrop] = React.useState("blur");
   // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Career>();
-
+  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
   const handleOpenDetail = (item: any, backdrop: string) => {
     console.log("backdrop", backdrop);
     setBackdrop(backdrop);
@@ -39,114 +40,118 @@ const Page = () => {
 
   return (
     <main className="flex flex-col">
-      <CoverPage src={education_cover} title="Carrer" navigation={true} />
+      <CoverPage src={education_cover} title="Carrer" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
-        <div className="my-20 flex w-full flex-col text-white">
-          <h1 className="text-center text-[36px] text-[#333333]">
-            Job Opportunity
-          </h1>
-          <p className="mx-32 my-5 text-center text-[#999999]">
-            With a sensitivity to international trends in hotel linen, Canasin
-            has successfully customized unique linen solutions for hotels around
-            the world. We also provide a thoughtful one-stop service, for which
-            we have received praise from customers all over the world.
-          </p>
-        </div>
+        <div className="container max-w-[1268px] mx-auto">
+          <div className="my-20 flex w-full flex-col text-white">
+            <h1 className="text-center text-[36px] text-[#333333]">
+              Job Opportunity
+            </h1>
+            <p className="mx-32 my-5 text-center text-[#999999]">
+              With a sensitivity to international trends in hotel linen, Canasin
+              has successfully customized unique linen solutions for hotels around
+              the world. We also provide a thoughtful one-stop service, for which
+              we have received praise from customers all over the world.
+            </p>
+          </div>
 
-        <div>{isLoading && <LoadingAnimation />}</div>
+          <div>{isLoading && <LoadingAnimation />}</div>
 
         <div>
           {data && data.length === 0 && (
             <div className="flex flex-col items-center justify-center">
-              {/* Directly render the SVG here */}
-              <center>
-                <Image
-                  alt="empty"
-                  className="h-1/2 w-1/2 rounded-lg shadow-sm"
-                  src={empty}
-                />
-              </center>
-            </div>
-          )}
-        </div>
-
-        <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-          {data &&
-            data.map((item: any, index) => (
-              <Card shadow="sm" key={index}>
-                <CardBody
-                  className="overflow-visible p-0"
-                  onClick={() => handleOpenDetail(item, "blur")}
-                >
+                {/* Directly render the SVG here */}
+                <center>
                   <Image
-                    style={{ boxShadow: "sm", borderRadius: "lg" }}
-                    width={100}
-                    height={100}
-                    alt={item.position}
-                    className="h-72 w-full object-contain"
-                    src={item.image ? imageURL(item.image) : notfound_cover}
+                    alt="empty"
+                    className="h-1/2 w-1/2 rounded-lg shadow-sm"
+                    src={empty}
                   />
-                </CardBody>
-                <CardFooter className="flex-col items-start text-small">
-                  <div className="my-1 flex gap-1">
-                    <p className="text-small font-semibold text-default-400">
-                      Position:
-                    </p>
-                    <p className="text-small text-default-400">
-                      {item.position}
-                    </p>
-                  </div>
-
-                  <div className="my-1 flex gap-1">
-                    <p className="text-small font-semibold text-default-400">
-                      Term:
-                    </p>
-                    <p className="text-small text-default-400">{item.term}</p>
-                  </div>
-
-                  <div className="my-1 flex gap-1">
-                    <p className="text-small font-semibold text-default-400">
-                      Open:
-                    </p>
-                    <p className="text-small text-default-400">
-                      {item.openDate} - {item.closeDate}
-                    </p>
-                  </div>
-                </CardFooter>
-              </Card>
-            ))}
-        </div>
-
-        <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl">
-          <ModalContent>
-            {() => (
-              <>
-                <ModalHeader className="gap- m-3 flex flex-col">
-                  <div className="mt-3">{modalData && modalData.position}</div>
-                </ModalHeader>
-                <ModalBody className="description m-3 mb-3">
-                  {/* <p>{modalData && modalData.description}</p> */}
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: (modalData && modalData.description) as string,
-                    }}
-                  />
-                </ModalBody>
-              </>
+                </center>
+              </div>
             )}
-          </ModalContent>
-        </Modal>
+            </div>
 
-        <QuoteCard
-          title="Think of Hotel Business, Think of SDC"
-          subtitle=" SDC Hotel Supply was established in 2008. Until now SDC work closely
-            with all 5 stars hotels in Cambodia.Our main supplies are Linen,
-            Towels, Amenities, Bed+Mattresses, Hotel appliances, and Room
-            accessories. Because of hospitality growing faster in Cambodia with
-            the short standard, so this is the reason for SDC company running."
-        />
-      </div>
+            <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+              {data &&
+                data.map((item: any, index) => (
+                  <Card shadow="sm" key={index} className="rounded-md">
+                    <CardBody
+                      className="overflow-visible p-0"
+                      onClick={() => handleOpenDetail(item, "blur")}
+                    >
+                      <img
+                        // style={{ boxShadow: "sm", borderRadius: "lg" }}
+                        // width={100}
+                        // height={100}
+                        alt={item.position}
+                        className="h-64 w-full object-cover shadow-sm rounded-b-none rounded-t-md"
+                        src={item.image ? imageURL(item.image) : notfound_cover}
+                      />
+                    </CardBody>
+                    <CardFooter className="flex-col items-start text-small">
+                      <div className="my-1 flex gap-1">
+                        <p className="text-small font-semibold text-default-400">
+                          Position:
+                        </p>
+                        <p className="text-small text-default-400">
+                          {item.position}
+                        </p>
+                      </div>
+
+                      <div className="my-1 flex gap-1">
+                        <p className="text-small font-semibold text-default-400">
+                          Term:
+                        </p>
+                        <p className="text-small text-default-400">{item.term}</p>
+                      </div>
+
+                      <div className="my-1 flex gap-1">
+                        <p className="text-small font-semibold text-default-400">
+                          Open:
+                        </p>
+                        <p className="text-small text-default-400">
+                          {item.openDate} - {item.closeDate}
+                        </p>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                ))}
+            </div>
+
+            <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+              <ModalContent>
+                {() => (
+                  <>
+                    <ModalHeader className="gap- m-3 flex flex-col pt-14">
+                      <div className="mt-3">{modalData && modalData.position}</div>
+                    </ModalHeader>
+                    <ModalBody className="description m-3 mb-3">
+                      {/* <p>{modalData && modalData.description}</p> */}
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: (modalData && modalData.description) as string,
+                        }}
+                      />
+                    </ModalBody>
+                  </>
+                )}
+              </ModalContent>
+            </Modal>
+
+            <QuoteCard
+              title="Think of Hotel Business, Think of SDC"
+              subtitle=" SDC Hotel Supply was established in 2008. Until now SDC work closely
+                with all 5 stars hotels in Cambodia.Our main supplies are Linen,
+                Towels, Amenities, Bed+Mattresses, Hotel appliances, and Room
+                accessories. Because of hospitality growing faster in Cambodia with
+                the short standard, so this is the reason for SDC company running."
+            />
+          </div>
+          
+        </div>
+       
 
       <ContactUs />
     </main>

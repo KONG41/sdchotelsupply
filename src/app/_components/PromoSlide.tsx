@@ -12,9 +12,13 @@ import { trpc } from '../_trpc/client';
 const PromoSlide = () => {
   const {data} = trpc.promotion.gets.useQuery()
   return (
-    <div className='w-full h-[600px]'>
+    <div className='w-full h-[430px]'>
       <Swiper
-        slidesPerView={1.3}
+      style={{
+        '--swiper-navigation-color': '#2e2e2e7f',
+        '--swiper-pagination-color': '#fff',
+      }}
+        slidesPerView={1}
         spaceBetween={30}
         loop={true}
         autoplay={{
@@ -22,7 +26,7 @@ const PromoSlide = () => {
           disableOnInteraction: false,
         }}
         pagination={{
-          clickable: true,
+          type: 'fraction',
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
@@ -31,7 +35,7 @@ const PromoSlide = () => {
         {
           data && data.map((item,index)=>
             item.status == 'active' && 
-            <SwiperSlide><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
+            <SwiperSlide ><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
           )
         }
       </Swiper>

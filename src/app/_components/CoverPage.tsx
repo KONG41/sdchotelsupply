@@ -9,8 +9,8 @@ interface cover{
 
 const CoverPage = ({src,title,navigation}:cover) => {
   return (
-    <div className='w-full h-[528px] relative'>
-        <Image src={src} alt='about us cover image' className='w-full'/>
+    <div className='w-full h-[365px] relative'>
+        <Image src={src} alt='about us cover image' className='w-full h-full object-cover'/>
         <div className='absolute top-0 w-full h-full flex flex-col justify-center items-center text-white'>
             <h1 className='text-[65px] font-bold'>{title}</h1>
             {navigation&&

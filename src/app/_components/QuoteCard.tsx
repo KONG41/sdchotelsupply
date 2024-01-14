@@ -9,7 +9,7 @@ interface cover {
 
 const QuoteCard = ({ title, subtitle }: cover) => {
   return (
-    <div className="mx-32 bg-[#F6F6F6] p-9">
+    <div className=" bg-[#F6F6F6] p-9">
       <center className="m-3">
         <Image
           style={{ boxShadow: "sm", borderRadius: "lg" }}

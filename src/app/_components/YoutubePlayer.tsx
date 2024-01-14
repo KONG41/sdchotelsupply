@@ -17,8 +17,8 @@ const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ videoId }) => {
   };
 
   const opts: YouTubeProps["opts"] = {
-    height: "315",
-    width: "510",
+    height: "215",
+    width: "100%",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 0,
