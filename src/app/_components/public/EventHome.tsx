@@ -66,29 +66,28 @@ const EventHome = () => {
           <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
             {data &&
               firstThreeElement.map((item: any, index) => (
-                <Card shadow="sm" key={index} className='rounded-md'>
+                <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
-                    className="overflow-visible p-0"
+                    className="overflow-visible p-0 flex-none"
                     onClick={() => handleOpenDetail(item, "blur")}
-
                   >
                     <img
-                      // style={{ boxShadow: "sm"}}
-                      // width={100}
-                      // height={100}
                       alt={item.name}
-                      className="h-64 w-full object-cover rounded-b-none rounded-t-md shadow-sm"
+                      className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full"
                       src={item.image ? imageURL(item.image) : notfound_cover}
                     />
                   </CardBody>
-                  <CardFooter className="flex-col items-start text-small">
-                    <b className="my-1 mr-3 w-full truncate">{item.name}</b>
-                    <p
-                      className="my-2 text-start text-default-500"
-                      dangerouslySetInnerHTML={{
-                        __html: item.description.slice(0, 200) as string,
-                      }}
-                    />
+                  <CardFooter className="flex-col items-start text-small justify-between flex-auto">
+                    <div>
+                      <b className="my-1 mr-3 w-full truncate">{item.name}</b>
+                      <p
+                        className="my-2 text-start text-default-500"
+                        dangerouslySetInnerHTML={{
+                          __html: item.description.slice(0, 200) as string,
+                        }}
+                      />
+                    </div>
+                    
                     <div className="ml-auto flex gap-1">
                       <p className="text-small font-semibold text-default-400">
                         {formatDate(item.createdAt)}
