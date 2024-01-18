@@ -11,6 +11,7 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  DropdownItem, DropdownTrigger, Dropdown, DropdownMenu
 } from "@nextui-org/react";
 import logo from "~/assets/logo_t.png";
 import Image from "next/image";
@@ -19,7 +20,15 @@ import Link from "next/link";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
-  const { data } = trpc.menu.gets.useQuery()
+  const { data:menuData }  = trpc.menu.gets.useQuery<any>();
+  const {data:subMenuData} = trpc.subMenu.gets.useQuery<any>();
+  const [mainMenu, setMainMenu] = React.useState<any>(menuData)
+  const item = mainMenu.find(obj => obj.id === 2);
+  if(item){
+    item.subMenu = 'Hello'
+  }
+  console.log('mainMenu:',mainMenu);
+  console.log(subMenuData);
   return (
     // <div className="container max-w-[1268px] mx-auto">
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth='full' isBordered>
@@ -38,7 +47,7 @@ const Header = () => {
             className="hidden gap-4 uppercase sm:flex"
             justify="center"
           >
-            { data && data.map((item, index) => 
+            { menuData && menuData.map((item, index) => 
               item.status == "active" && (
                 <NavbarItem key={`${item}-${index}`}>
                   <Link
@@ -52,6 +61,64 @@ const Header = () => {
                 </NavbarItem>
               )
             )}
+            <Dropdown>
+              <NavbarItem>
+                <DropdownTrigger>
+                  <Button
+                    disableRipple
+                    className="p-0 bg-transparent data-[hover=true]:bg-transparent"
+                    
+                    radius="sm"
+                    variant="light"
+                  >
+                    Features
+                  </Button>
+                </DropdownTrigger>
+              </NavbarItem>
+              <DropdownMenu
+                aria-label="ACME features"
+                className="w-[340px]"
+                itemClasses={{
+                  base: "gap-4",
+                }}
+              >
+                <DropdownItem
+                  key="autoscaling"
+                  description="ACME scales apps to meet user demand, automagically, based on load."
+                
+                >
+                  Autoscaling
+                </DropdownItem>
+                <DropdownItem
+                  key="usage_metrics"
+                  description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
+                
+                >
+                  Usage Metrics
+                </DropdownItem>
+                <DropdownItem
+                  key="production_ready"
+                  description="ACME runs on ACME, join us and others serving requests at web scale."
+                
+                >
+                  Production Ready
+                </DropdownItem>
+                <DropdownItem
+                  key="99_uptime"
+                  description="Applications stay on the grid with high availability and high uptime guarantees."
+                
+                >
+                  +99% Uptime
+                </DropdownItem>
+                <DropdownItem
+                  key="supreme_support"
+                  description="Overcome any challenge with a supporting team ready to respond."
+                
+                >
+                  +Supreme Support
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </NavbarContent>
           <NavbarContent justify="end">
             <NavbarItem>
@@ -66,7 +133,7 @@ const Header = () => {
             </NavbarItem>
           </NavbarContent>
           <NavbarMenu>
-            { data && data.map((item, index) => (
+            { menuData && menuData.map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
                   className={`w-full ${
