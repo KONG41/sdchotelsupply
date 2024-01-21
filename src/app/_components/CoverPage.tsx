@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import { IoIosArrowForward } from "react-icons/io";
 interface cover{
+  // eslint-disable-next-line
     src:any;
     title: string;
     navigation:boolean;

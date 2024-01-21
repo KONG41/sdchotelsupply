@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 export default function UserPage(){
 
-    const { data:users , error ,isLoading} = trpc.getUsers.useQuery()
+    const { data:users ,isLoading} = trpc.getUsers.useQuery()
     console.log("user",users)
     
     type User =  {

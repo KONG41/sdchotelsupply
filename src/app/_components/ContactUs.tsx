@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image'
 import contact_bg from '@/assets/contact_bg.png'
 import { trpc } from '../_trpc/client';
-import { url } from 'inspector';
+// import { url } from 'inspector';
 
 const ContactUs = () => {
 
@@ -13,14 +13,14 @@ const ContactUs = () => {
   const [phone,setPhone] = useState("")
 
   const mutation = trpc.contactSubmit.useMutation({
-    onError: (error) => {
+    onError: () => {
       alert("something went wrong!")
     },
     onSuccess: () => {
       alert("Your message has been sent")
     }
   })
-
+// eslint-disable-next-line
   const handleSubmit = (e:any) => {
     e.preventDefault()
     mutation.mutate({name,email,phone,message})

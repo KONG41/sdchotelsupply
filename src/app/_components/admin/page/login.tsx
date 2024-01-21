@@ -7,12 +7,12 @@ export default function Page(){
 
     const [username , setUsername ] = useState("")
     const [password, setPassword ] = useState("")
-    const [isLoading,setIsLoading] = useState(false)
+    // const [isLoading,setIsLoading] = useState(false)
 
     const handleLogin = ()=>{
       if(!username ||!password){
             toast.error(("Please enter a username and password"));
-            setIsLoading(false);
+            // setIsLoading(false);
             return;
         }
         toast.promise(signIn("credentials", {
@@ -25,14 +25,14 @@ export default function Page(){
                 if(res?.error){
                     toast.error(("Invalid username or password"));
                     toast.dismiss();
-                    setIsLoading(false);
+                    // setIsLoading(false);
                     return;
                 }
                 // useRouter not working
                 window.location.reload();
                 return ("Logged in")
             },
-            error: (e)=> {setIsLoading(false);console.log("error",e);return ("Something went wrong11!")},
+            error: (e)=> {console.log("error",e);return ("Something went wrong11!")},
         })
     }
 

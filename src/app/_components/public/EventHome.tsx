@@ -1,5 +1,5 @@
 'use client'
-import React,{useState} from 'react'
+import React from 'react'
 import {Image} from "@nextui-org/react";
 import { trpc } from '@/app/_trpc/client';
 import {imageURL} from "@/lib/utils"
@@ -8,9 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
-  ModalProps,
   useDisclosure,
   Card,
   CardBody,
@@ -20,27 +17,26 @@ import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import notfound_cover from "~/assets/404_notfound.svg";
 import education_cover from "~/assets/education_cover.jpg";
-interface dataType{
-  status:string,
-  name:string,
-  image:any,
-  id:any
-}
+// interface dataType{
+//   status:string,
+//   name:string,
+//   image:any,
+//   id:any
+// }
+// eslint-disable-next-line
 const formatDate = (date: any) => {
   return format(date, "dd MMM, yyyy");
 };
 const EventHome = () => {
-  const { data, isLoading } = trpc.event.gets.useQuery();
+  const { data } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("blur");
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  
+  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
   // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Event>();
-
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
-    setBackdrop(backdrop);
+// eslint-disable-next-line
+  const handleOpenDetail = (item: any) => {
     setModalData(item);
     onOpen();
   };
@@ -65,6 +61,7 @@ const EventHome = () => {
         <div className="container max-w-[1268px] mx-auto">
           <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
             {data &&
+            // eslint-disable-next-line
               firstThreeElement.map((item: any, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
@@ -98,7 +95,7 @@ const EventHome = () => {
               ))}
           </div>
 
-          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="outside">
             <ModalContent>
               {() => (
                 <>

@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import education_cover from "~/assets/education_cover.jpg";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
 import QuoteCard from "~/app/_components/QuoteCard";

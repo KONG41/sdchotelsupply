@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import 'swiper/css';
@@ -35,7 +35,7 @@ const PromoSlide = () => {
         {
           data && data.map((item,index)=>
             item.status == 'active' && 
-            <SwiperSlide ><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
+            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
           )
         }
       </Swiper>

@@ -1,5 +1,5 @@
 "use client";
-import React,{useState} from "react";
+import React from "react";
 import Image from "next/image";
 import education_cover from "~/assets/education_cover.jpg";
 import notfound_cover from "~/assets/404_notfound.svg";
@@ -12,7 +12,6 @@ import {
   Card,
   CardBody,
   CardFooter,
-  ModalProps
 } from "@nextui-org/react";
 import ContactUs from "~/app/_components/ContactUs";
 import CoverPage from "~/app/_components/CoverPage";
@@ -27,13 +26,14 @@ const Page = () => {
   const { data, isLoading } = trpc.career.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("blur");
+  // const [backdrop, setBackdrop] = React.useState("blur");
   // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Career>();
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
-    setBackdrop(backdrop);
+  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  // eslint-disable-next-line
+  const handleOpenDetail = (item: any) => {
+    // console.log("backdrop", backdrop);
+    // setBackdrop(backdrop);
     setModalData(item);
     onOpen();
   };
@@ -75,11 +75,12 @@ const Page = () => {
 
             <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
               {data &&
+              // eslint-disable-next-line
                 data.map((item: any, index) => (
                   <Card shadow="sm" key={index} className="rounded-md">
                     <CardBody
                       className="overflow-visible p-0"
-                      onClick={() => handleOpenDetail(item, "blur")}
+                      onClick={() => handleOpenDetail(item)}
                     >
                       <img
                         // style={{ boxShadow: "sm", borderRadius: "lg" }}
@@ -120,7 +121,7 @@ const Page = () => {
                 ))}
             </div>
 
-            <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+            <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="outside">
               <ModalContent>
                 {() => (
                   <>

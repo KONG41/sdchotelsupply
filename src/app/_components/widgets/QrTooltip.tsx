@@ -1,6 +1,7 @@
 import React from 'react'
 import {Tooltip} from "@nextui-org/react";
 import Qr from '../Qr';
+// eslint-disable-next-line
 const QrTooltip = ({qr,icon}:any) => {
   return (
     <Tooltip content={<Qr qr={qr}/>} showArrow={true} classNames={{  

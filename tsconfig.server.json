@@ -2,6 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "outDir": "dist",
     "lib": ["es2019"],
     "target": "es2019",

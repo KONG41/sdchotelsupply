@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 export default function Page(){
 
-    const { data , error ,isLoading} = trpc.education.gets.useQuery()
+    const { data  ,isLoading} = trpc.education.gets.useQuery()
     
     type Data =  {
     id: number;

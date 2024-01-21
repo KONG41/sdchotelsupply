@@ -1,5 +1,5 @@
 "use client";
-import React,{useState} from "react";
+import React from "react";
 import {Image} from "@nextui-org/image";
 import education_cover from "~/assets/education_cover.jpg";
 import notfound_cover from "~/assets/404_notfound.svg";
@@ -8,9 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
-  ModalProps,
   useDisclosure,
   Card,
   CardBody,
@@ -25,7 +22,7 @@ import empty from "~/assets/empty.svg";
 import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
-
+// eslint-disable-next-line
 const formatDate = (date: any) => {
   return format(date, "dd MMM, yyyy");
 };
@@ -34,14 +31,14 @@ const Event = () => {
   const { data, isLoading } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("blur");
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  // const [backdrop, setBackdrop] = React.useState("blur");
+  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
   // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Event>();
-
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
-    setBackdrop(backdrop);
+// eslint-disable-next-line
+  const handleOpenDetail = (item: any) => {
+    // console.log("backdrop", backdrop);
+    // setBackdrop(backdrop);
     setModalData(item);
     onOpen();
   };
@@ -85,11 +82,12 @@ const Event = () => {
 
           <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
             {data &&
+            // eslint-disable-next-line
               data.map((item: any, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
                     className="overflow-visible p-0 flex-none"
-                    onClick={() => handleOpenDetail(item, "blur")}
+                    onClick={() => handleOpenDetail(item)}
                   >
                     <img
                       alt={item.name}
@@ -118,7 +116,7 @@ const Event = () => {
               ))}
           </div>
 
-          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="outside">
             <ModalContent>
               {() => (
                 <>
@@ -129,10 +127,9 @@ const Event = () => {
                         // height={100}
                         alt={modalData && modalData.name ? modalData.name : ""}
                         className="h-full w-full items-center justify-center rounded-sm object-cover"
-                        src={
-                          modalData && modalData.image
+                        src={`${modalData && modalData.image
                             ? imageURL(modalData.image as string)
-                            : education_cover
+                            : education_cover}`
                         }
                       />
                       <div className="mt-3 w-full">

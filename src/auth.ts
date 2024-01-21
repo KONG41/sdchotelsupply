@@ -1,4 +1,5 @@
-import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
+// import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {

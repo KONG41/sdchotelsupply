@@ -10,8 +10,9 @@ import product_cv from '~/assets/product_cv.png'
 import CoverPage from '../CoverPage';
 import LoadingAnimation from '../widgets/LoadingAnimation';
 const AllProducts = () => {
-  const { data:productData , error:productError ,isLoading:productLoading}:any = trpc.product.gets.useQuery()
- 
+  // eslint-disable-next-line
+  const { data:productData}:any = trpc.product.gets.useQuery()
+ // eslint-disable-next-line
   const [catQuery, setCatQuery] = useState<any>()
   const searchParams = useSearchParams()
   const cat = searchParams.get('cat')
@@ -29,7 +30,7 @@ const AllProducts = () => {
         <h1 className='text-[39px] my-3 text-center'>All The {catName && catName.name} You Need</h1>
         <div className='flex flex-row my-7 flex-wrap'>
           {
-            productByCat ? productByCat.map((item,index)=>(
+            productByCat ? productByCat.map((item)=>(
               <Link href={`/product/${item.id}`} className='w-1/4 p-5' key={item.name}>
                 <Image src={item.image&&imageURL(item.image[0])} alt='product photo' className="w-full rounded-none h-[176px] object-cover"/>
                 <h1 className='text-center text-[18px] my-3'>{item.name}</h1>

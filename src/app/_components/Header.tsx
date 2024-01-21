@@ -21,7 +21,9 @@ import { GoChevronDown } from "react-icons/go";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
+  // eslint-disable-next-line
   const { data:menuData }  = trpc.menu.gets.useQuery<any>();
+  // eslint-disable-next-line
   const {data:subMenuData} = trpc.subMenu.gets.useQuery<any>();
   const menuWithSubmenu = menuData && menuData.map( m =>({...m, subMenus:subMenuData.filter(sub => sub.parentId === m.id)}))
   console.log(menuWithSubmenu)

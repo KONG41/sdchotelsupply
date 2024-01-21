@@ -1,5 +1,5 @@
 import { procedure, router } from "../trpc";
-import { TRPCError } from "@trpc/server";
+// import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { db } from "../db";
 

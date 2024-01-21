@@ -11,6 +11,7 @@ type ImageUploaderProps = {
   imageNames?: string[];
   setImageNames?: Dispatch<SetStateAction<string[] | undefined>>;
   id?: number;
+  // eslint-disable-next-line
   mutationImg?: any;
 };
 

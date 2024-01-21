@@ -1,5 +1,5 @@
 "user client";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 

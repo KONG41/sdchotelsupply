@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem, Textarea} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 
