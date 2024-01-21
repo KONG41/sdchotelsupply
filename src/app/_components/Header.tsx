@@ -79,7 +79,7 @@ const Header = () => {
                                 className={
                                   pathname === subMenu.description ? "text-[#DB2230]" : "text-[black]"
                                 }
-                                href={subMenu.description}
+                                href={item.description +"?cat="+subMenu.id}
                               >
                                 {subMenu.name}
                               </Link>
