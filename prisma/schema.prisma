@@ -113,6 +113,7 @@ model Education {
     name        String
     description String?  @db.Text
     youtubeLink String?
+    categoryId  Int?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 }
