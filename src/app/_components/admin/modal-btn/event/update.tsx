@@ -56,7 +56,7 @@ export default function EditModalBtn({id}:{id:number}) {
             setDescription(data.description??"")
             setYoutubeLink(data.youtubeLink??"")
             
-            // @ts-expect-error is necessary
+          
             setImage(data.image as string[] ??[])
         }
     }, [data])

@@ -22,10 +22,11 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   // eslint-disable-next-line
-  const { data:menuData }  = trpc.menu.gets.useQuery<any>();
+  const { data:menuData }  = trpc.menu.gets.useQuery();
   // eslint-disable-next-line
-  const {data:subMenuData} = trpc.subMenu.gets.useQuery<any>();
+  const {data:subMenuData} = trpc.subMenu.gets.useQuery();
   const menuWithSubmenu = menuData && menuData.map( m =>({...m, subMenus:subMenuData.filter(sub => sub.parentId === m.id)}))
+  console.log(menuData)
   console.log(menuWithSubmenu)
   return (
     // <div className="container max-w-[1268px] mx-auto">
@@ -46,7 +47,7 @@ const Header = () => {
             justify="center"
           >
            
-            { menuWithSubmenu && menuWithSubmenu.map((item, index) => 
+            { menuData && menuData.map((item, index) => 
               item.status == "active" && (
                 item.subMenus.length > 0 ? 
                 <Dropdown key={`${item}-${index}`}>

@@ -60,7 +60,7 @@ export default function EditModalBtn({id}:{id:number}) {
             setCategoryId(product.categoryId??0)
             setPopular(product.popular??false)
             setPrice(product.price?.toString()??"")
-            // @ts-expect-error is necessary
+          
             setImage(product.image as string[] ??[])
         }
     }, [product])

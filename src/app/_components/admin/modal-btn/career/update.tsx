@@ -57,8 +57,7 @@ export default function EditModalBtn({id}:{id:number}) {
             setOpenDate(data.openDate??"")
             setCloseDate(data.closeDate??"")
             setDescription(data.description??"")
-            //ignore type error
-            // @ts-expect-error is necessary
+        
             setImage(data.image as string[] ??[])
         }
     }, [data])

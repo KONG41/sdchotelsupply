@@ -52,8 +52,7 @@ export default function EditModalBtn({id}:{id:number}) {
             setName(data.name)
             setYear(data.year??"")
             setDescription(data.description??"")
-            
-            // @ts-expect-error is necessary
+       
             setImage(data.image as string[] ??[])
         }
     }, [data])
