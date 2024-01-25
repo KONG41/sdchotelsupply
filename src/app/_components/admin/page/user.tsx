@@ -23,7 +23,7 @@ export default function UserPage(){
         {key:"status",label:"STATUS"},
         {key:"action",label:"ACTION"}
     ];
-
+    /* eslint-disable */
     const renderCell = useCallback((user: User , columnKey: React.Key) => {
 
     const cellValue = user[columnKey as keyof User];

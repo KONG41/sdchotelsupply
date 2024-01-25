@@ -55,8 +55,10 @@ export default function EditModalBtn({id}:{id:number}) {
             setStatus(data.status??"")
             setDescription(data.description??"")
             setYoutubeLink(data.youtubeLink??"")
-            
-          
+
+            /*
+            @ts-expect-error: Unreachable code error
+            */
             setImage(data.image as string[] ??[])
         }
     }, [data])

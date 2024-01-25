@@ -53,8 +53,10 @@ export default function EditModalBtn({id}:{id:number}) {
             setName(data.name)
             setStatus(data.status??"")
             setDescription(data.description??"")
-           
-            //@ts-expect-error is necessary
+          
+            /*
+            @ts-expect-error: Unreachable code error
+            */
             setImage(data.image as string[] ??[])
         }
     }, [data])

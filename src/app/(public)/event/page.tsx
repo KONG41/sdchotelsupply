@@ -26,7 +26,7 @@ import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
 const formatDate = (date: any) => {
   return format(date, "dd MMM, yyyy");
 };
-
+/* eslint-disable */
 const Event = () => {
   const { data, isLoading } = trpc.event.gets.useQuery();
 

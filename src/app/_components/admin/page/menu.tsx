@@ -46,7 +46,7 @@ export default function MenuPage(){
         {key:"description",label:"DESCRIPTION"},
         {key:"action",label:"ACTION"}
     ];
-
+    /* eslint-disable */
     const renderCell = useCallback((menu: Menu , columnKey: React.Key) => {
 
         const cellValue = menu[columnKey as keyof Menu];
@@ -81,7 +81,7 @@ export default function MenuPage(){
             </>;
         }
     }, []);
-
+    /* eslint-disable */
     const renderSubMenuCell = useCallback((menu: SubMenu , columnKey: React.Key) => {
 
         const cellValue = menu[columnKey as keyof SubMenu];

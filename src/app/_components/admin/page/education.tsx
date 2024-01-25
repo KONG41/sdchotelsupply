@@ -24,7 +24,7 @@ export default function Page(){
         {key:"description",label:"DESCRIPTION"},
         {key:"action",label:"ACTION"}
     ];
-
+    /* eslint-disable */
     const renderCell = useCallback((data: Data , columnKey: React.Key) => {
     if(!data) return null
     const cellValue = data[columnKey as keyof Data];

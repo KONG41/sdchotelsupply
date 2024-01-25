@@ -49,7 +49,7 @@ export default function EditModalBtn({id}:{id:number}) {
         }
       }
     }, [selectedFiles]);
-
+    
     useEffect(() => {
         if(data){
             setPosition(data.position)
@@ -57,8 +57,8 @@ export default function EditModalBtn({id}:{id:number}) {
             setOpenDate(data.openDate??"")
             setCloseDate(data.closeDate??"")
             setDescription(data.description??"")
-        
-            setImage(data.image as string[] ??[])
+
+           
         }
     }, [data])
 

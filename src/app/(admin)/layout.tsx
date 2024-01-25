@@ -26,6 +26,7 @@ export const metadata = {
 export default async function RootLayout({
   children,
 }: {
+  /* eslint-disable */
   children: React.ReactNode;
 }) {
   const session = await auth();

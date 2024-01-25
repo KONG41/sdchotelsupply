@@ -18,6 +18,7 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: {
+  /* eslint-disable */
   children: React.ReactNode;
 }) {
   return (

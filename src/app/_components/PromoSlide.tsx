@@ -11,13 +11,11 @@ import {imageURL} from "@/lib/utils"
 import { trpc } from '../_trpc/client';
 const PromoSlide = () => {
   const {data} = trpc.promotion.gets.useQuery()
+  console.log(data)
   return (
     <div className='w-full h-[430px]'>
       <Swiper
-      style={{
-        '--swiper-navigation-color': '#2e2e2e7f',
-        '--swiper-pagination-color': '#fff',
-      }}
+     
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -30,14 +28,14 @@ const PromoSlide = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="w-full h-full"
+        className="w-full h-full swiper-custom-color-pagination"
       >
         {
-          data && data.map((item,index)=>
-            item.status == 'active' && 
-            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
+          data && data?.filter( promote => promote.status === 'active').map((promoteItem,index) => 
+            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={`${promoteItem.image&&imageURL(promoteItem.image[0])}`} alt='promotion01' className='!object-contain'/></SwiperSlide>  
           )
         }
+        
       </Swiper>
     </div>
   )
