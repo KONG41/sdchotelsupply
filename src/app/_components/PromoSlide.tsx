@@ -9,13 +9,34 @@ import '~/styles/home.css';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import {imageURL} from "@/lib/utils"
 import { trpc } from '../_trpc/client';
+
+interface PromotionType {
+  status: string | null;
+      id: number;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      description: string | null;
+      price: number | null;
+      popular: boolean | null;
+      image: string | null;
+      categoryId: number | null;
+      category: {
+          status: string | null;
+          id: number;
+          description: string | null;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+          parentId: number | null;
+      } | null;// or whatever the correct type is
+}
+
 const PromoSlide = () => {
   const {data} = trpc.promotion.gets.useQuery()
-  console.log(data)
   return (
     <div className='w-full h-[430px]'>
       <Swiper
-     
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -31,11 +52,11 @@ const PromoSlide = () => {
         className="w-full h-full swiper-custom-color-pagination"
       >
         {
-          data && data?.filter( promote => promote.status === 'active').map((promoteItem,index) => 
-            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={`${promoteItem.image&&imageURL(promoteItem.image[0])}`} alt='promotion01' className='!object-contain'/></SwiperSlide>  
+          data && (data as PromotionType[]).map((item,index)=>
+            item.status == 'active' && 
+            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={`${item.image&&imageURL(item.image[0])}`} alt='promotion01' className='!object-contain'/></SwiperSlide>
           )
         }
-        
       </Swiper>
     </div>
   )
