@@ -20,15 +20,17 @@ const educationRouter = router({
         name: z.string(),
         description: z.string(),
         youtubeLink: z.string(),
+        categoryId: z.number(),
       }),
     )
     .mutation(async (opts) => {
-      const { name, description, youtubeLink } = opts.input;
+      const { name, description, youtubeLink, categoryId } = opts.input;
       await db.education.create({
         data: {
           name,
           description,
           youtubeLink,
+          categoryId,
         },
       });
       return { message: "success" };
@@ -40,16 +42,18 @@ const educationRouter = router({
         name: z.string(),
         description: z.string(),
         youtubeLink: z.string(),
+        categoryId: z.number(),
       }),
     )
     .mutation(async (opts) => {
-      const { id, name, description, youtubeLink } = opts.input;
+      const { id, name, description, youtubeLink, categoryId } = opts.input;
       await db.education.update({
         where: { id },
         data: {
           name,
           description,
           youtubeLink,
+          categoryId,
         },
       });
       return { message: "success" };

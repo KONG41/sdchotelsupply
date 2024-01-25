@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea, Select, SelectItem} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 
@@ -10,6 +10,9 @@ export default function AddModalBtn() {
     const [name, setName] = useState("");
     const [youtubeLink, setYoutubeLink] = useState("");
     const [description, setDescription] = useState("");
+    const [categoryId, setCategoryId] = useState(0);
+
+    const {data:submenulist} = trpc.subMenu.list.useQuery()
 
     const utils = trpc.useUtils()
 
@@ -33,6 +36,7 @@ export default function AddModalBtn() {
           name,
           youtubeLink,
           description,
+          categoryId
       })
     }
 
@@ -46,6 +50,9 @@ export default function AddModalBtn() {
               <ModalHeader className="flex flex-col gap-1">New Education</ModalHeader>
               <ModalBody>
                 <Input label="name" value={name} onChange={(e)=>setName(e.target.value)}/>
+                <Select required onChange={(e)=> setCategoryId(Number(e.target.value))} label={"category"} items={submenulist}>
+                  {parent => <SelectItem key={parent.id} value={parent.id}>{parent.name}</SelectItem>}
+                </Select>
                 <Input label="youtube link" value={youtubeLink} onChange={(e)=>setYoutubeLink(e.target.value)}/>
                 <Textarea label="description" value={description} onChange={(e)=>setDescription(e.target.value)}/>
               </ModalBody>

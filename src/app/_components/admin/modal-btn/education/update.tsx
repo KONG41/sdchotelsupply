@@ -1,6 +1,6 @@
 "use client";
 import { useState , useEffect } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea, Select,SelectItem} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 import DeleteModalBtn from "./delete";
@@ -11,10 +11,12 @@ export default function EditModalBtn({id}:{id:number}) {
     const [name, setName] = useState("");
     const [youtubeLink, setYoutubeLink] = useState("");
     const [description, setDescription] = useState("");
+    const [categoryId, setCategoryId] = useState(0);
 
     const utils = trpc.useUtils()
 
     const {data:education} = trpc.education.get.useQuery({id})
+    const {data:submenulist} = trpc.subMenu.list.useQuery()
 
     useEffect(()=>{
         if(education){
@@ -45,7 +47,8 @@ export default function EditModalBtn({id}:{id:number}) {
           id,
           name,
           description,
-          youtubeLink
+          youtubeLink,
+          categoryId
       })
     }
 
@@ -69,6 +72,9 @@ export default function EditModalBtn({id}:{id:number}) {
               <ModalHeader className="flex flex-col gap-1">Edit Education</ModalHeader>
               <ModalBody>
                 <Input label="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
+                <Select required onChange={(e)=> setCategoryId(Number(e.target.value))} label={"Category"} items={submenulist}>
+                  {parent => <SelectItem key={parent.id} value={parent.id}>{parent.name}</SelectItem>}
+                </Select>
                 <Input label="Youtube Link" value={youtubeLink} onChange={(e)=>setYoutubeLink(e.target.value)}/>
                 <Textarea label="description" value={description} onChange={(e)=>setDescription(e.target.value)}/>
               </ModalBody>
