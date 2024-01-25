@@ -11,7 +11,7 @@ import CoverPage from '../CoverPage';
 import LoadingAnimation from '../widgets/LoadingAnimation';
 const AllProducts = () => {
   // eslint-disable-next-line
-  const { data:productData}= trpc.product.gets.useQuery()
+  const { data:productData}:any = trpc.product.gets.useQuery()
  // eslint-disable-next-line
   const [catQuery, setCatQuery] = useState<any>()
   const searchParams = useSearchParams()
