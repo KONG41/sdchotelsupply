@@ -43,23 +43,10 @@ const EventHome = () => {
   const firstThreeElement = data ? data.slice(-3).reverse(): []
   return (
     <div className="my-12 gap-7">
-          {/* <div className="flex flex-row">
-            {
-              data && firstThreeElement.map((item,index)=>(
-                item.status == 'active' && 
-                <div className="h-[400px] w-1/3 p-3" key={item.id}>
-                  <Image src={item.image && imageURL(item.image[0])} alt="event01" className="h-[350px] w-full object-cover rounded-none" />
-                  <h1 className="py-3 text-center text-[20px]">
-                    {item.name}
-                  </h1>
-                </div>
-              ))
-            }
-          </div> */}
 
 <div className="relative my-10 h-full w-full bg-white">
-        <div className="container max-w-[1268px] mx-auto">
-          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+        <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
+          <div className=" my-10 grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {data &&
             // eslint-disable-next-line
               firstThreeElement.map((item: any, index) => (

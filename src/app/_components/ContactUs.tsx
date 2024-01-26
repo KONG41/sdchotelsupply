@@ -29,8 +29,8 @@ const ContactUs = () => {
 
   return (
     <div className='w-full inline-block' style={{ backgroundImage: `url(${contact_bg.src})` }}>
-            <div className='container max-w-[680px] p-12 bg-white rounded-md m-auto my-32'>
-                <h1 className='text-center text-[39px] my-3 font-semibold'>Contact Us Now</h1>
+            <div className='container sm:max-w-[680px] w-[90%] p-12 bg-white rounded-md m-auto my-32'>
+                <h1 className='text-center sm:text-[39px] text-[29px] my-3 font-semibold'>Contact Us Now</h1>
                 <form className='flex flex-col'>
                     <input value={name} onChange={(e)=>setName(e.target.value)} type='text' placeholder='*Name'  className='bg-slate-200 text-gray-500 focus-visible:outline-none text-md my-2 p-3 rounded-md text-[15px]'/>
                     <input value={email} onChange={(e)=>setEmail(e.target.value)} type='email' placeholder='*Email' className='bg-slate-200 text-gray-500 focus-visible:outline-none text-md my-2 p-3 rounded-md text-[15px]'/>

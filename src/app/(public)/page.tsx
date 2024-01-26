@@ -12,15 +12,15 @@ import ContactUs from "../_components/ContactUs";
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col">
-      <div className="relative h-[700px] w-full bg-slate-700">
-        <Image src={home_hero} alt="home hero" className="h-full w-full" />
+      <div className="relative md:h-[700px] h-[400px] w-full bg-slate-700">
+        <Image src={home_hero} alt="home hero" className="h-full w-full object-cover" />
         <div className="absolute bottom-0 text-white w-full h-full bg-[#00000023]">
-          <div className="container max-w-[1268px] mx-auto flex flex-col justify-end h-full pb-56">
-            <h1 className="text-[36px]">
+          <div className="container md:max-w-[1268px] w-[90%] mx-auto flex flex-col justify-end h-full md:pb-56 pb-10">
+            <h1 className="md:text-[36px] text-[20px]">
               SDC Hotel Supply was established in 2008.Until now SDC work closely
               with all 5 stars hotels in Cambodia.
             </h1>
-            <p className="text-[24px]">
+            <p className="md:text-[24px] text-[16px]">
               Office Hour : ( Monday - Friday : 8:00Am - 5:00Pm | Sat : 8:00Am -
               12:00Pm )
             </p>
@@ -28,18 +28,18 @@ export default function HomePage() {
           
         </div>
       </div>
-      <div className=" container max-w-[1268px] mx-auto">
+      <div className=" container sm:max-w-[1268px] w-[90%] mx-auto">
         <div className="container mx-auto pt-24">
           <h1 className="text-center text-[39px] font-bold uppercase">Products</h1>
           <p className="text-center text-gray-500">
             Check out our global reach within 28 years of relentless striving.
           </p>
-          <div className="mt-12 flex flex-row justify-evenly gap-7 flex-wrap">
-            <div className="group relative h-[370px] w-[620px] bg-gray-400">
+          <div className="mt-12 grid gap-5 md:w-full sm:w-[70%] w-full mx-auto md:grid-cols-2 grid-cols-1">
+            <div className="group relative h-[370px] bg-gray-400">
               <Image
                 src={hotel_product}
                 alt="hotel_product"
-                className="h-full w-full"
+                className="h-full w-full object-cover"
               />
               <div className="absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center gap-3 text-white group-hover:bg-[#00000024]">
                 <p className="mt-[175px] text-[23px]">Hotel Products</p>
@@ -48,11 +48,11 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="group relative h-[370px] w-[620px] bg-gray-400">
+            <div className="group relative h-[370px] bg-gray-400">
               <Image
                 src={home_product}
                 alt="hotel_product"
-                className="h-full w-full"
+                className="h-full w-full object-cover"
               />
               <div className="absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center gap-3 text-white group-hover:bg-[#00000024]">
                 <p className="mt-[175px] text-[23px]">Home Products</p>

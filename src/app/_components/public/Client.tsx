@@ -7,7 +7,7 @@ const Client = () => {
     const {data} = trpc.clientRoute.gets.useQuery();
   return (
     <div className="mt-12 gap-7">
-          <div className="flex flex-row flex-wrap justify-between">
+          <div className="flex flex-row flex-wrap justify-evenly">
             {
                 data && data.map((item,index)=>(
                     <div className="mb-3 w-[240px] border border-gray-200 p-3" key={`client_${index}`}>

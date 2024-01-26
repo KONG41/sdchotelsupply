@@ -48,14 +48,14 @@ const Event = () => {
       <CoverPage src={education_cover} title="Our Event" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
-        <div className="container max-w-[1268px] mx-auto">
+        <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
 
           
           <div className="my-20 flex w-full flex-col text-white">
             <h1 className="text-center text-[36px] text-[#333333]">
               CSR or Charity
             </h1>
-            <p className="mx-32 my-5 text-center text-[#999999]">
+            <p className="sm:mx-32 mx-3 my-5 text-center text-[#999999]">
               With a sensitivity to international trends in hotel linen, Canasin
               has successfully customized unique linen solutions for hotels around
               the world. We also provide a thoughtful one-stop service, for which
@@ -80,7 +80,7 @@ const Event = () => {
             )}
           </div>
 
-          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          <div className=" my-10 gap-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {data &&
             // eslint-disable-next-line
               data.map((item: any, index) => (

@@ -1,6 +1,7 @@
 'use client'
 import React,{useState, useEffect} from 'react'
-import {Image} from "@nextui-org/react";
+// import {Image} from "@nextui-org/react";
+// import Image from 'next/image';
 import { trpc } from '@/app/_trpc/client' 
 import {imageURL} from "@/lib/utils"
 import Link from 'next/link';
@@ -25,14 +26,14 @@ const AllProducts = () => {
   return (
     <>
     <CoverPage src={product_cv} title={catName && catName.name} navigation={false}/>
-    <div className="container mx-auto">
-      <div className='mx-[240px] mt-20 mb-40'>
-        <h1 className='text-[39px] my-3 text-center'>All The {catName && catName.name} You Need</h1>
-        <div className='flex flex-row my-7 flex-wrap'>
+    <div className="container sm:mx-w-[1268px] w-[90%] mx-auto">
+      <div className=' mt-20 mb-40'>
+        <h1 className='md:text-[39px] text-[29px] text- my-3 text-center'>All The {catName && catName.name} You Need</h1>
+        <div className='flex flex-wrap justify-center'>
           {
             productByCat ? productByCat.map((item)=>(
-              <Link href={`/product/${item.id}`} className='w-1/4 p-5' key={item.name}>
-                <Image src={item.image&&imageURL(item.image[0])} alt='product photo' className="w-full rounded-none h-[176px] object-cover"/>
+              <Link href={`/product/${item.id}`} className='max-w-[320px] p-5' key={item.name}>
+                <img src={item.image&&imageURL(item.image[0])} alt='product photo' className=" w-full rounded-none h-[176px] object-cover"/>
                 <h1 className='text-center text-[18px] my-3'>{item.name}</h1>
               </Link>
             )) : <LoadingAnimation/>

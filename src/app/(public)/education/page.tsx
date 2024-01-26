@@ -24,7 +24,7 @@ const Education = () => {
             <h1 className="text-center text-[36px] text-[#333333]">
               Housekeeping Class
             </h1>
-            <p className="mx-32 my-5 text-center text-[#999999]">
+            <p className="sm:mx-32 mx-3 my-5 text-center text-[#999999]">
               With a sensitivity to international trends in hotel linen, Canasin
               has successfully customized unique linen solutions for hotels around
               the world. We also provide a thoughtful one-stop service, for which
@@ -49,7 +49,7 @@ const Education = () => {
             )}
           </div>
 
-          <div className="mx-32 my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          <div className="sm:mx-32 mx-3 my-10 grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {/* {!data && <div>Loading...</div>} */}
 
             {data &&
