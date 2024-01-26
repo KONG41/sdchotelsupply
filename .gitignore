@@ -42,3 +42,4 @@ yarn-error.log*
 *.tsbuildinfo
 
 /public/uploads
+/dist
