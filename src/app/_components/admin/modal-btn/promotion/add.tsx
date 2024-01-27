@@ -65,7 +65,7 @@ export default function AddModalBtn() {
           name,
           description,
           status,
-          image
+          image: JSON.stringify(image)
       })
     }
 

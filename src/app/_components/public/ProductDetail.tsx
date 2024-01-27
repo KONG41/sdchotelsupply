@@ -11,21 +11,9 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import './swiper.css';
 import {trpc} from "@/app/_trpc/client";
 import {imageURL} from "@/lib/utils"
-// eslint-disable-next-line
-const ProductDetail = ({id}:any) => {
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const {data} = trpc.product.gets.useQuery();
-    const [product, setProduct] = useState([]);
-    const [productPhoto,setProductPhoto] = useState([])
-    useEffect(() => {
-      if(typeof data != 'undefined'){
-        const newData = data.filter(user => user.id == id);
-        setProduct(newData[0]);
-        setProductPhoto(newData[0].image);
-      }
-    }, [])
-    console.log('product',product);
-    console.log('image',productPhoto);
+const ProductDetail = ({id}:{id:number}) => {
+    const [thumbsSwiper, setThumbsSwiper] = useState();
+    const {data} = trpc.product.get.useQuery({id});
    
   return (
     <div className='container max-w-[1268px] mx-auto'>
@@ -34,10 +22,6 @@ const ProductDetail = ({id}:any) => {
         </div> */}
         <div className='p-7 bg-slate-50 my-7 container max-w-[820px] mx-auto'>
             <Swiper
-            style={{
-              '--swiper-navigation-color': '#fff',
-              '--swiper-pagination-color': '#fff',
-            }}
             spaceBetween={10}
             navigation={true}
             thumbs={{ swiper: thumbsSwiper }}
@@ -45,7 +29,7 @@ const ProductDetail = ({id}:any) => {
             className="w-full h-[350px]"
           >
             {
-                productPhoto && productPhoto.map((item)=>(
+                JSON.parse(data?.image??"[]")?.map((item:string)=>(
                    <SwiperSlide key={item}>
                       <img src={item && imageURL(item)} />
                     </SwiperSlide>
@@ -54,7 +38,6 @@ const ProductDetail = ({id}:any) => {
   
           </Swiper>
           <Swiper
-            onSwiper={setThumbsSwiper}
             spaceBetween={10}
             slidesPerView={4}
             freeMode={true}
@@ -63,16 +46,16 @@ const ProductDetail = ({id}:any) => {
             className="mySwiper"
           >
            {
-                productPhoto && productPhoto.map((item,index)=>(
+                JSON.parse(data?.image??"[]")?.map((item:string,index:number)=>(
                    <SwiperSlide key={`photo_${index}`}>
                       <img src={item && imageURL(item)} />
                     </SwiperSlide>
                 ))
             }
           </Swiper>
-          <h1 className='text-xl py-3 font-bold'>{product.name}</h1>
+          <h1 className='text-xl py-3 font-bold'>{data?.name}</h1>
           <p className='border-t py-7' dangerouslySetInnerHTML={{
-                      __html:(product && product.description) as string,
+                      __html:data?.description ??  "",
                     }} />
         </div>
     </div>

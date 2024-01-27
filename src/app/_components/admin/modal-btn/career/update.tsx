@@ -118,7 +118,7 @@ export default function EditModalBtn({id}:{id:number}) {
           openDate,
           closeDate,
           description,
-          image:updateImage
+          image:JSON.stringify(updateImage)
       })
     }
 

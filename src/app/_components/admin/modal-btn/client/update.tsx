@@ -52,11 +52,7 @@ export default function EditModalBtn({id}:{id:number}) {
             setName(data.name)
             setYear(data.year??"")
             setDescription(data.description??"")
-
-            /*
-            @ts-expect-error: Unreachable code error
-            */
-            setImage(data.image as string[] ??[])
+            setImage(JSON.parse(data.image??"[]"))
         }
     }, [data])
 

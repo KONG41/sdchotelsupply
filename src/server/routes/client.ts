@@ -46,7 +46,7 @@ const clientRouter = router({
           name,
           description,
           year,
-          image,
+          image: JSON.stringify(image),
         },
       });
       return { message: "client added successfully" };
@@ -68,7 +68,7 @@ const clientRouter = router({
         data: {
           name,
           description,
-          image,
+          image: JSON.stringify(image),
           year,
         },
       });
@@ -78,7 +78,7 @@ const clientRouter = router({
     .input(
       z.object({
         id: z.number(),
-        image: z.array(z.string()),
+        image: z.string(),
       }),
     )
     .mutation(async (opts) => {

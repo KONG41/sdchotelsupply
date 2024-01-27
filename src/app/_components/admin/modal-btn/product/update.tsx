@@ -61,7 +61,7 @@ export default function EditModalBtn({id}:{id:number}) {
             setPopular(product.popular??false)
             setPrice(product.price?.toString()??"")
           
-            setImage(product.image as string[] ??[])
+            setImage(JSON.parse(product.image??"[]"))
         }
     }, [product])
 
@@ -125,7 +125,7 @@ export default function EditModalBtn({id}:{id:number}) {
           categoryId,
           popular,
           price: Number(price),
-          image:updateImage
+          image:JSON.stringify(updateImage)
       })
     }
 

@@ -53,7 +53,7 @@ const EventHome = () => {
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
                     className="overflow-visible p-0 flex-none"
-                    onClick={() => handleOpenDetail(item, "blur")}
+                    onClick={() => handleOpenDetail(item)}
                   >
                     <img
                       alt={item.name}
@@ -94,9 +94,9 @@ const EventHome = () => {
                         alt={modalData && modalData.name ? modalData.name : ""}
                         className="h-full w-full items-center justify-center rounded-sm object-cover"
                         src={
-                          modalData && modalData.image
-                            ? imageURL(modalData.image as string)
-                            : education_cover
+                          modalData?.image
+                            ? imageURL(JSON.parse(modalData.image)[0])
+                            : education_cover.src
                         }
                       />
                       <div className="mt-3 w-full">

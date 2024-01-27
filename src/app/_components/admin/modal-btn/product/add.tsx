@@ -76,7 +76,7 @@ export default function AddModalBtn() {
           categoryId,
           popular, 
           status,
-          image
+          image:JSON.stringify(image)
       })
     }
 

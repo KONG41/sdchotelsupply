@@ -57,7 +57,7 @@ export default function EditModalBtn({id}:{id:number}) {
             /*
             @ts-expect-error: Unreachable code error
             */
-            setImage(data.image as string[] ??[])
+            setImage(JSON.parse(data.image??"[]"))
         }
     }, [data])
 
@@ -115,7 +115,7 @@ export default function EditModalBtn({id}:{id:number}) {
           name,
           description,
           status,
-          image:updateImage
+          image:JSON.stringify(updateImage)
       })
     }
 
