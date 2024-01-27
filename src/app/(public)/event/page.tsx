@@ -21,8 +21,8 @@ import { imageURL } from "@/lib/utils";
 import empty from "~/assets/empty.svg";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
-// eslint-disable-next-line
-const formatDate = (date: any) => {
+
+const formatDate = (date:Date) => {
   return format(date, "dd MMM, yyyy");
 };
 /* eslint-disable */
@@ -31,12 +31,11 @@ const Event = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = useState("blur");
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  const [scrollBehavior, setScrollBehavior] = useState("outside");
   // State to store the data for the modal
   const [modalData, setModalData] = useState();
 
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
+  const handleOpenDetail = (item) => {
     setBackdrop(backdrop);
     setModalData(item);
     onOpen();

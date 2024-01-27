@@ -14,7 +14,7 @@ const AllProducts = () => {
   // eslint-disable-next-line
   const { data:productData}:any = trpc.product.gets.useQuery()
  // eslint-disable-next-line
-  const [catQuery, setCatQuery] = useState<any>()
+  const [catQuery, setCatQuery] = useState()
   const searchParams = useSearchParams()
   const cat = searchParams.get('cat')
   const intCat =  parseInt(catQuery, 10)
