@@ -26,7 +26,6 @@ export const {
           headers: { "Content-Type": "application/json" },
         });
         const user = await res.json();
-        // console.log("user", user, res.ok);
         if (res.ok && user.status !== "active") {
           return null;
         }
