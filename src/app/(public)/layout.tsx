@@ -15,6 +15,8 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+
 export default function RootLayout({
   children,
 }: {
@@ -24,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TrpcProvider BASE_URL="http://localhost:3000">
+        <TrpcProvider BASE_URL={baseURL}>
           <Providers>
             <Header />
               {children}
