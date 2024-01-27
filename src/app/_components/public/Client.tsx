@@ -12,7 +12,7 @@ const Client = () => {
                 data && data.map((item,index)=>(
                     <div className="mb-3 w-[240px] border border-gray-200 p-3" key={`client_${index}`}>
                     <img
-                        src={item.image && imageURL(item.image[0])}
+                        src={imageURL(JSON.parse(item.image??"[]")[0])??""}
                         alt="client01"
                         className="h-[198px] w-full object-cover rounded-none"
                     />

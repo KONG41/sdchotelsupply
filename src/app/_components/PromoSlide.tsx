@@ -54,7 +54,7 @@ const PromoSlide = () => {
         {
           data && (data as PromotionType[]).map((item,index)=>
             item.status == 'active' && 
-            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={`${item.image&&imageURL(item.image[0])}`} alt='promotion01' className='!object-contain'/></SwiperSlide>
+            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={`${item.image&&imageURL(JSON.parse(item.image)[0])}`} alt='promotion01' className='!object-contain'/></SwiperSlide>
           )
         }
       </Swiper>

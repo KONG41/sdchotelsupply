@@ -35,7 +35,7 @@ const promotionRouter = router({
       z.object({
         name: z.string(),
         description: z.string(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
         status: z
           .string()
           .refine((value) => value === "active" || value === "disable", {
@@ -61,7 +61,7 @@ const promotionRouter = router({
         id: z.number(),
         name: z.string(),
         description: z.string(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
         status: z
           .string()
           .refine((value) => value === "active" || value === "disable", {
@@ -86,7 +86,7 @@ const promotionRouter = router({
     .input(
       z.object({
         id: z.number(),
-        image: z.array(z.string()),
+        image: z.string(),
       }),
     )
     .mutation(async (opts) => {

@@ -67,7 +67,7 @@ export default function AddModalBtn() {
           description,
           status,
           youtubeLink,
-          image
+          image:JSON.stringify(image)
       })
     }
 

@@ -69,7 +69,7 @@ export default function AddModalBtn() {
           openDate,
           closeDate,
           description,
-          image
+          image:JSON.stringify(image)
       })
     }
 
