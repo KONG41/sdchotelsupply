@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import Image from 'next/image';
 import { trpc } from '@/app/_trpc/client';
 import {imageURL} from "@/lib/utils"
 
@@ -8,10 +7,10 @@ const Client = () => {
     const {data} = trpc.clientRoute.gets.useQuery();
   return (
     <div className="mt-12 gap-7">
-          <div className="flex flex-row flex-wrap justify-between">
+          <div className="flex flex-row flex-wrap justify-evenly">
             {
                 data && data.map((item,index)=>(
-                    <div className="mb-3 w-[240px] border border-gray-200 p-3">
+                    <div className="mb-3 w-[240px] border border-gray-200 p-3" key={`client_${index}`}>
                     <img
                         src={item.image && imageURL(item.image[0])}
                         alt="client01"

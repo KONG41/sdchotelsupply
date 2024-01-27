@@ -9,7 +9,6 @@ import Topbar from "@/app/_components/admin/topbar";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import { db } from "~/server/db";
-import { signOut } from "next-auth/react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
 
@@ -27,6 +26,7 @@ export const metadata = {
 export default async function RootLayout({
   children,
 }: {
+  /* eslint-disable */
   children: React.ReactNode;
 }) {
   const session = await auth();

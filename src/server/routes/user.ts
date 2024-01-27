@@ -56,7 +56,8 @@ const userRouter = router({
     )
     .mutation(async (opts) => {
       const { id, username, password, status, email } = opts.input;
-      let updateData: any = {
+      // eslint-disable-next-line
+      let updateData:any = {
         username,
         status,
         email,

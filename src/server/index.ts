@@ -64,14 +64,14 @@ export const appRouter = router({
         },
       });
       // verify connection configuration
-      transporter.verify(function (error, success) {
+      transporter.verify(function (error) {
         if (error) {
           console.log(error);
           return false;
         }
       });
 
-      const info = await transporter.sendMail({
+      await transporter.sendMail({
         from: "contact@sdchotelsupply.com",
         to: "contact@sdchotelsupply.com",
         subject: "Contact Us",

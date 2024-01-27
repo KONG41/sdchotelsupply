@@ -1,5 +1,5 @@
 "use client";
-import React,{useState} from "react";
+import React from "react";
 import {Image} from "@nextui-org/image";
 import education_cover from "~/assets/education_cover.jpg";
 import notfound_cover from "~/assets/404_notfound.svg";
@@ -8,9 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
-  ModalProps,
   useDisclosure,
   Card,
   CardBody,
@@ -25,23 +22,23 @@ import empty from "~/assets/empty.svg";
 import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
-
+// eslint-disable-next-line
 const formatDate = (date: any) => {
   return format(date, "dd MMM, yyyy");
 };
-
+/* eslint-disable */
 const Event = () => {
   const { data, isLoading } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("blur");
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  // const [backdrop, setBackdrop] = React.useState("blur");
+  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
   // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Event>();
-
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
-    setBackdrop(backdrop);
+// eslint-disable-next-line
+  const handleOpenDetail = (item: any) => {
+    // console.log("backdrop", backdrop);
+    // setBackdrop(backdrop);
     setModalData(item);
     onOpen();
   };
@@ -51,14 +48,14 @@ const Event = () => {
       <CoverPage src={education_cover} title="Our Event" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
-        <div className="container max-w-[1268px] mx-auto">
+        <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
 
           
           <div className="my-20 flex w-full flex-col text-white">
             <h1 className="text-center text-[36px] text-[#333333]">
               CSR or Charity
             </h1>
-            <p className="mx-32 my-5 text-center text-[#999999]">
+            <p className="sm:mx-32 mx-3 my-5 text-center text-[#999999]">
               With a sensitivity to international trends in hotel linen, Canasin
               has successfully customized unique linen solutions for hotels around
               the world. We also provide a thoughtful one-stop service, for which
@@ -83,13 +80,14 @@ const Event = () => {
             )}
           </div>
 
-          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          <div className=" my-10 gap-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {data &&
+            // eslint-disable-next-line
               data.map((item: any, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
                     className="overflow-visible p-0 flex-none"
-                    onClick={() => handleOpenDetail(item, "blur")}
+                    onClick={() => handleOpenDetail(item)}
                   >
                     <img
                       alt={item.name}
@@ -118,7 +116,7 @@ const Event = () => {
               ))}
           </div>
 
-          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="outside">
             <ModalContent>
               {() => (
                 <>
@@ -129,10 +127,9 @@ const Event = () => {
                         // height={100}
                         alt={modalData && modalData.name ? modalData.name : ""}
                         className="h-full w-full items-center justify-center rounded-sm object-cover"
-                        src={
-                          modalData && modalData.image
+                        src={`${modalData && modalData.image
                             ? imageURL(modalData.image as string)
-                            : education_cover
+                            : education_cover}`
                         }
                       />
                       <div className="mt-3 w-full">

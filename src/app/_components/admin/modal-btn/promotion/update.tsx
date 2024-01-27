@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem, Textarea} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 import ImageUploader from "@/app/_components/admin/imageuploader";
@@ -28,8 +28,8 @@ export default function EditModalBtn({id}:{id:number}) {
     });
 
     useEffect(() => {
-      let str: string[] = [];
-      let files: { file: File, name: string }[] = [];
+      const str: string[] = [];
+      const files: { file: File, name: string }[] = [];
       
       if (selectedFiles.length > 0) {
         selectedFiles.forEach((file) => {
@@ -53,8 +53,10 @@ export default function EditModalBtn({id}:{id:number}) {
             setName(data.name)
             setStatus(data.status??"")
             setDescription(data.description??"")
-            //ignore type error
-            // @ts-ignore
+          
+            /*
+            @ts-expect-error: Unreachable code error
+            */
             setImage(data.image as string[] ??[])
         }
     }, [data])
@@ -84,7 +86,7 @@ export default function EditModalBtn({id}:{id:number}) {
           if (!res.ok) {
             return false
           }
-          const data = await res.json();
+          await res.json();
           return true
         } catch (error) {
           console.error('An error occurred:', error);
@@ -132,7 +134,7 @@ export default function EditModalBtn({id}:{id:number}) {
       <Button onPress={onOpen}>Edit</Button>
       <Modal size="5xl" className="h-[800px]" isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} onClose={handleCancel}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">Edit Promotion</ModalHeader>
               <ModalBody className="overflow-auto">

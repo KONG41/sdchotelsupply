@@ -1,6 +1,6 @@
 "use client";
 import { useState , useEffect } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem, Textarea} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Textarea, Select,SelectItem} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 import DeleteModalBtn from "./delete";
@@ -15,7 +15,7 @@ export default function EditModalBtn({id}:{id:number}) {
 
     const utils = trpc.useUtils()
 
-    const {data:education, error , isLoading} = trpc.education.get.useQuery({id})
+    const {data:education} = trpc.education.get.useQuery({id})
     const {data:submenulist} = trpc.subMenu.list.useQuery()
 
     useEffect(()=>{
@@ -25,7 +25,6 @@ export default function EditModalBtn({id}:{id:number}) {
             setDescription(education.description??'')
         }
     },[education])
-
     const mutation = trpc.education.update.useMutation({
       onSuccess: () => {
         toast.success("Education Updated")
@@ -68,7 +67,7 @@ export default function EditModalBtn({id}:{id:number}) {
       <Button onPress={onOpen}>Edit</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} onClose={handleCancel}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">Edit Education</ModalHeader>
               <ModalBody>

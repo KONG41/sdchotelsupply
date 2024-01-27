@@ -11,8 +11,8 @@ import AddSubMenuModalBtn from "../modal-btn/submenu/add";
 
 export default function MenuPage(){
 
-    const { data:menu , error ,isLoading} = trpc.menu.gets.useQuery()
-    const { data:submenu , error:suberror ,isLoading:subisLoading} = trpc.subMenu.gets.useQuery()
+    const { data:menu ,isLoading} = trpc.menu.gets.useQuery()
+    const { data:submenu,isLoading:subisLoading} = trpc.subMenu.gets.useQuery()
     type Menu =  {
         name: string;
         description: string | null;
@@ -46,7 +46,7 @@ export default function MenuPage(){
         {key:"description",label:"DESCRIPTION"},
         {key:"action",label:"ACTION"}
     ];
-
+    /* eslint-disable */
     const renderCell = useCallback((menu: Menu , columnKey: React.Key) => {
 
         const cellValue = menu[columnKey as keyof Menu];
@@ -81,7 +81,7 @@ export default function MenuPage(){
             </>;
         }
     }, []);
-
+    /* eslint-disable */
     const renderSubMenuCell = useCallback((menu: SubMenu , columnKey: React.Key) => {
 
         const cellValue = menu[columnKey as keyof SubMenu];

@@ -1,5 +1,5 @@
 'use client'
-import React,{useState} from 'react'
+import React from 'react'
 import {Image} from "@nextui-org/react";
 import { trpc } from '@/app/_trpc/client';
 import {imageURL} from "@/lib/utils"
@@ -8,9 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
-  ModalProps,
   useDisclosure,
   Card,
   CardBody,
@@ -20,51 +17,38 @@ import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import notfound_cover from "~/assets/404_notfound.svg";
 import education_cover from "~/assets/education_cover.jpg";
-interface dataType{
-  status:string,
-  name:string,
-  image:any,
-  id:any
-}
+// interface dataType{
+//   status:string,
+//   name:string,
+//   image:any,
+//   id:any
+// }
+// eslint-disable-next-line
 const formatDate = (date: any) => {
   return format(date, "dd MMM, yyyy");
 };
 const EventHome = () => {
-  const { data, isLoading } = trpc.event.gets.useQuery();
+  const { data } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("blur");
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  
+  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
   // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Event>();
-
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
-    setBackdrop(backdrop);
+// eslint-disable-next-line
+  const handleOpenDetail = (item: any) => {
     setModalData(item);
     onOpen();
   };
   const firstThreeElement = data ? data.slice(-3).reverse(): []
   return (
     <div className="my-12 gap-7">
-          {/* <div className="flex flex-row">
-            {
-              data && firstThreeElement.map((item,index)=>(
-                item.status == 'active' && 
-                <div className="h-[400px] w-1/3 p-3" key={item.id}>
-                  <Image src={item.image && imageURL(item.image[0])} alt="event01" className="h-[350px] w-full object-cover rounded-none" />
-                  <h1 className="py-3 text-center text-[20px]">
-                    {item.name}
-                  </h1>
-                </div>
-              ))
-            }
-          </div> */}
 
 <div className="relative my-10 h-full w-full bg-white">
-        <div className="container max-w-[1268px] mx-auto">
-          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+        <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
+          <div className=" my-10 grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {data &&
+            // eslint-disable-next-line
               firstThreeElement.map((item: any, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
@@ -98,7 +82,7 @@ const EventHome = () => {
               ))}
           </div>
 
-          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="outside">
             <ModalContent>
               {() => (
                 <>

@@ -16,7 +16,7 @@ export default function EditUserModalBtn({id}:{id:number}) {
 
     const utils = trpc.useUtils()
 
-    const {data:user, error , isLoading} = trpc.user.get.useQuery({id})
+    const {data:user} = trpc.user.get.useQuery({id})
 
     useEffect(()=>{
         if(user){
@@ -70,7 +70,7 @@ export default function EditUserModalBtn({id}:{id:number}) {
       <Button onPress={onOpen}>Edit</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} onClose={handleCancel}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">Edit User</ModalHeader>
               <ModalBody>

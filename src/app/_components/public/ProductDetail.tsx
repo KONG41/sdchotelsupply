@@ -3,7 +3,6 @@
 import React, {useState, useEffect} from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Breadcrumb from '../widgets/Breadcrumb';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
@@ -12,6 +11,7 @@ import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import './swiper.css';
 import {trpc} from "@/app/_trpc/client";
 import {imageURL} from "@/lib/utils"
+// eslint-disable-next-line
 const ProductDetail = ({id}:any) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const {data} = trpc.product.gets.useQuery();
@@ -45,8 +45,8 @@ const ProductDetail = ({id}:any) => {
             className="w-full h-[350px]"
           >
             {
-                productPhoto && productPhoto.map((item,index)=>(
-                   <SwiperSlide>
+                productPhoto && productPhoto.map((item)=>(
+                   <SwiperSlide key={item}>
                       <img src={item && imageURL(item)} />
                     </SwiperSlide>
                 ))
@@ -64,7 +64,7 @@ const ProductDetail = ({id}:any) => {
           >
            {
                 productPhoto && productPhoto.map((item,index)=>(
-                   <SwiperSlide>
+                   <SwiperSlide key={`photo_${index}`}>
                       <img src={item && imageURL(item)} />
                     </SwiperSlide>
                 ))

@@ -20,8 +20,8 @@ import footer_logo from "~/assets/logo.png";
 const Footer = () => {
   return (
     <div className="w-full bg-[#DB2230]">
-      <div className="m-auto flex w-2/3 flex-row justify-center text-white">
-        <div className="w-2/4 p-5 px-7">
+      <div className="container sm:max-w-[1268px] w-full mx-auto flex flex-col-reverse sm:flex-row justify-center text-white">
+        <div className="sm:w-2/4 p-5 px-7">
           <h1 className="mb-3 text-sm font-bold uppercase">Contact Info</h1>
           <ul>
             <li className="mb-3 flex flex-row">
@@ -73,18 +73,18 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="w-1/4 p-5 px-7">
+        <div className="sm:w-1/4 p-5 px-7">
           <h1 className="mb-3 text-sm font-bold uppercase">Product</h1>
           <ul>
             <li className="mb-3 hover:underline">
-              <Link href="/product/hotel">Hotel Products</Link>
+              <Link href="/product?cat=2">Hotel Products</Link>
             </li>
             <li className="mb-3 hover:underline">
-              <Link href="/product/home"> Home Products</Link>
+              <Link href="/product?cat=1"> Home Products</Link>
             </li>
           </ul>
         </div>
-        <div className="w-1/4 p-5 px-7">
+        <div className="sm:w-1/4 p-5 px-7">
           <h1 className="mb-3 text-sm font-bold uppercase">Education</h1>
           <ul>
             <li className="mb-3 hover:underline">
@@ -98,14 +98,14 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="w-1/4 p-5 px-7">
+        <div className="sm:w-1/4 p-5 px-7">
           <h1 className="mb-3 text-sm font-bold uppercase">Event</h1>
           <ul>
             <li className="mb-3 hover:underline">
-              <Link href="#">Short Video Clip</Link>
+              <Link href="/education?cat=3">Short Video Clip</Link>
             </li>
             <li className="mb-3 hover:underline">
-              <Link href="#">CSR or Charity</Link>
+              <Link href="/education?cat=4">CSR or Charity</Link>
             </li>
           </ul>
         </div>

@@ -21,10 +21,9 @@ import { GoChevronDown } from "react-icons/go";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
-  const { data:menuData }  = trpc.menu.gets.useQuery<any>();
-  const {data:subMenuData} = trpc.subMenu.gets.useQuery<any>();
-  const menuWithSubmenu = menuData && menuData.map( m =>({...m, subMenus:subMenuData.filter(sub => sub.parentId === m.id)}))
-  console.log(menuWithSubmenu)
+  // eslint-disable-next-line
+  const { data:menuData }  = trpc.menu.gets.useQuery();
+  console.log(menuData)
   return (
     // <div className="container max-w-[1268px] mx-auto">
     <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth='full' isBordered>
@@ -44,7 +43,7 @@ const Header = () => {
             justify="center"
           >
            
-            { menuWithSubmenu && menuWithSubmenu.map((item, index) => 
+            { menuData && menuData.map((item, index) => 
               item.status == "active" && (
                 item.subMenus.length > 0 ? 
                 <Dropdown key={`${item}-${index}`}>
@@ -68,24 +67,23 @@ const Header = () => {
                       base: "gap-4",
                     }}
                   > 
-                    {item.subMenus.map(subMenu =>
-                      
-                        item.status === 'active' && (
-                          <DropdownItem
-                            key={subMenu.name}
-                            
+                    { item.subMenus.filter(subMenu =>  subMenu.status === 'active').map(subMenuItem => 
+                      <DropdownItem
+                        key={subMenuItem.name}
+                        
+                      >
+                          <Link
+                            className={
+                              pathname === subMenuItem.description ? "text-[#DB2230]" : "text-[black]"
+                            }
+                            href={item.description +"?cat="+subMenuItem.id}
                           >
-                               <Link
-                                className={
-                                  pathname === subMenu.description ? "text-[#DB2230]" : "text-[black]"
-                                }
-                                href={subMenu.description}
-                              >
-                                {subMenu.name}
-                              </Link>
-                          </DropdownItem>
-                        )
-                      )}
+                            {subMenuItem.name}
+                          </Link>
+                      </DropdownItem>
+                    )
+                    
+                    }
                     
                     
                   </DropdownMenu>
@@ -99,7 +97,7 @@ const Header = () => {
                   >
                      <Link
                       
-                      href={item.description}
+                      href={`${item.description}`}
                     >
                       {item.name}
                     </Link>
@@ -129,7 +127,7 @@ const Header = () => {
                   className={`w-full ${
                     pathname === item.description ? "text-[#DB2230]" : "text-black"
                   }`}
-                  href={item.description}
+                  href={`${item.description}`}
                 >
                   {item.name}
                 </Link>
