@@ -14,7 +14,7 @@ import certificate04 from "~/assets/certificate04.jpg";
 const About = () => {
   return (
     <div>
-      <CoverPage src={about_cv} title="About Us" navigation={false} />
+      <CoverPage src={about_cv.src} title="About Us" navigation={false} />
       <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
        
         <div className="mb-40 mt-20">
