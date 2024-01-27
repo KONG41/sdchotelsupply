@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import {useState} from "react";
 import {Image} from "@nextui-org/image";
 import education_cover from "~/assets/education_cover.jpg";
 import notfound_cover from "~/assets/404_notfound.svg";
@@ -19,7 +19,6 @@ import QuoteCard from "~/app/_components/QuoteCard";
 import { trpc } from "@/app/_trpc/client";
 import { imageURL } from "@/lib/utils";
 import empty from "~/assets/empty.svg";
-import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
 // eslint-disable-next-line
@@ -31,14 +30,14 @@ const Event = () => {
   const { data, isLoading } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [backdrop, setBackdrop] = React.useState("blur");
-  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  const [backdrop, setBackdrop] = useState("blur");
+  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
   // State to store the data for the modal
-  const [modalData, setModalData] = React.useState<Event>();
-// eslint-disable-next-line
-  const handleOpenDetail = (item: any) => {
-    // console.log("backdrop", backdrop);
-    // setBackdrop(backdrop);
+  const [modalData, setModalData] = useState();
+
+  const handleOpenDetail = (item: any, backdrop: string) => {
+    console.log("backdrop", backdrop);
+    setBackdrop(backdrop);
     setModalData(item);
     onOpen();
   };
@@ -80,10 +79,8 @@ const Event = () => {
             )}
           </div>
 
-          <div className=" my-10 gap-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-            {data &&
-            // eslint-disable-next-line
-              data.map((item: any, index) => (
+          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+            {data?.map((item, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
                     className="overflow-visible p-0 flex-none"
@@ -123,13 +120,11 @@ const Event = () => {
                   <center>
                     <ModalHeader className="m-3 flex h-[auto] w-6/6 flex-col items-center justify-center pt-14 ">
                       <Image
-                        // width={100}
-                        // height={100}
-                        alt={modalData && modalData.name ? modalData.name : ""}
+                        alt={ modalData?.name ?? ""}
                         className="h-full w-full items-center justify-center rounded-sm object-cover"
-                        src={`${modalData && modalData.image
+                        src={ modalData?.image
                             ? imageURL(modalData.image as string)
-                            : education_cover}`
+                            : education_cover.src
                         }
                       />
                       <div className="mt-3 w-full">

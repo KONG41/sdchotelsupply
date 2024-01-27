@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TrpcProvider BASE_URL="http://localhost:3000">
+        <TrpcProvider BASE_URL={`${process.env.NEXT_PUBLIC_BASE_URL}`}>
           <Providers>
             <Header />
               {children}
