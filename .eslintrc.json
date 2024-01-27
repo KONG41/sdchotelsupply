@@ -3,8 +3,12 @@
   "parserOptions": {
     // "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "eslint:recommended"],
+  "plugins": ["@typescript-eslint", "jest"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended"
+  ],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/ban-ts-comment": [
@@ -13,5 +17,8 @@
         "ts-expect-error": "allow-with-description"
       }
     ]
+  },
+  "env": {
+    "jest/globals": true
   }
 }

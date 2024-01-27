@@ -22,20 +22,31 @@ import empty from "~/assets/empty.svg";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
 
-const formatDate = (date:Date) => {
-  return format(date, "dd MMM, yyyy");
-};
-/* eslint-disable */
+
 const Event = () => {
+  interface Event {
+    status: string | null;
+    id: number;
+    description: string | null;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    image: string | null;
+    youtubeLink: string | null;
+}
+  
+  const formatDate = (date:string) => {
+    return format(date, "dd MMM, yyyy");
+  };
   const { data, isLoading } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [backdrop, setBackdrop] = useState("blur");
   const [scrollBehavior, setScrollBehavior] = useState("outside");
   // State to store the data for the modal
-  const [modalData, setModalData] = useState();
+  const [modalData, setModalData] = useState<Event>();
 
-  const handleOpenDetail = (item) => {
+  const handleOpenDetail = (item: Event) => {
     setBackdrop(backdrop);
     setModalData(item);
     onOpen();
@@ -97,14 +108,14 @@ const Event = () => {
                       <p
                         className="my-2 text-start text-default-500"
                         dangerouslySetInnerHTML={{
-                          __html: item.description.slice(0, 200) as string,
+                          __html: item.description?.slice(0, 200) ?? "" ,
                         }}
                       />
                     </div>
                     
                     <div className="ml-auto flex gap-1">
                       <p className="text-small font-semibold text-default-400">
-                        {formatDate(item.createdAt)}
+                        {formatDate(item?.createdAt)}
                       </p>
                     </div>
                   </CardFooter>
@@ -138,7 +149,7 @@ const Event = () => {
 
                     <p
                       dangerouslySetInnerHTML={{
-                        __html: (modalData && modalData.description) as string,
+                        __html: modalData?.description ?? "",
                       }}
                     />
                   </ModalBody>
