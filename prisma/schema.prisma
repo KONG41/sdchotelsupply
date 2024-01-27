@@ -70,7 +70,7 @@ model Product {
     description String?  @db.Text
     price       Float?
     popular     Boolean?
-    image       String?
+    image       String?  @default("[]")
     categoryId  Int?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
@@ -82,7 +82,7 @@ model Promotion {
     name        String
     status      String?
     description String?  @db.Text
-    image       String?
+    image       String?  @default("[]")
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
 }
@@ -92,7 +92,7 @@ model Event {
     name        String
     status      String?
     description String?  @db.Text
-    image       String?
+    image       String?  @default("[]")
     youtubeLink String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
@@ -103,7 +103,7 @@ model Client {
     name        String
     year        String?
     description String?  @db.Text
-    image       String?
+    image       String?  @default("[]")
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
 }
@@ -125,7 +125,7 @@ model Career {
     openDate    String?
     closeDate   String?
     description String?  @db.Text
-    image       String?
+    image       String?  @default("[]")
     createdAt   DateTime @default(now())
     updatedAt   DateTime @default(now()) @updatedAt
 }

@@ -20,7 +20,7 @@ const AllProducts = () => {
   },[searchParams])
   return (
     <>
-    <CoverPage src={product_cv} title={catName?.name ?? ""} navigation={false}/>
+    <CoverPage src={product_cv.src} title={catName?.name ?? ""} navigation={false}/>
     <div className="container sm:mx-w-[1268px] w-[90%] mx-auto">
       <div className=' mt-20 mb-40'>
         <h1 className='md:text-[39px] text-[29px] text- my-3 text-center'>All The {catName && catName.name} You Need</h1>
