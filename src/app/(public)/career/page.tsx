@@ -40,7 +40,7 @@ const Page = () => {
 
   return (
     <main className="flex flex-col">
-      <CoverPage src={education_cover} title="Carrer" navigation={false} />
+      <CoverPage src={education_cover.src} title="Carrer" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
         <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
