@@ -16,7 +16,7 @@ const Education = () => {
 
   return (
     <main className="flex flex-col">
-      <CoverPage src={education_cover} title="Education" navigation={false} />
+      <CoverPage src={education_cover.src} title="Education" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
         <div className="container max-w-[1268px] mx-auto">
