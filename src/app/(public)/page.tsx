@@ -43,7 +43,7 @@ export default function HomePage() {
               />
               <div className="absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center gap-3 text-white group-hover:bg-[#00000024]">
                 <p className="mt-[175px] text-[23px]">Hotel Products</p>
-                <Link href="#" className="hidden underline group-hover:block">
+                <Link href="/product?cat=2" className="hidden underline group-hover:block">
                   Read More
                 </Link>
               </div>
@@ -56,7 +56,7 @@ export default function HomePage() {
               />
               <div className="absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center gap-3 text-white group-hover:bg-[#00000024]">
                 <p className="mt-[175px] text-[23px]">Home Products</p>
-                <Link href="#" className="hidden underline group-hover:block">
+                <Link href="/product?cat=1" className="hidden underline group-hover:block">
                   Read More
                 </Link>
               </div>

@@ -88,7 +88,7 @@ const Page = () => {
                         // height={100}
                         alt={item.position}
                         className="h-64 w-full object-cover shadow-sm rounded-b-none rounded-t-md"
-                        src={item.image ? imageURL(item.image) : notfound_cover}
+                        src={item.image ? imageURL(JSON.parse(item.image)[0]) : notfound_cover}
                       />
                     </CardBody>
                     <CardFooter className="flex-col items-start text-small">

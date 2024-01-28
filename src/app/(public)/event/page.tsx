@@ -54,7 +54,7 @@ const Event = () => {
 
   return (
     <main className="flex flex-col">
-      <CoverPage src={education_cover} title="Our Event" navigation={false} />
+      <CoverPage src={education_cover.src} title="Our Event" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
         <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
@@ -89,7 +89,7 @@ const Event = () => {
             )}
           </div>
 
-          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
+          <div className=" my-10 grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {data?.map((item, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
@@ -99,7 +99,7 @@ const Event = () => {
                     <img
                       alt={item.name}
                       className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full"
-                      src={item.image ? imageURL(item.image) : notfound_cover}
+                      src={item.image ? imageURL(JSON.parse(item.image)[0]) : notfound_cover}
                     />
                   </CardBody>
                   <CardFooter className="flex-col items-start text-small justify-between flex-auto">
@@ -132,9 +132,9 @@ const Event = () => {
                       <Image
                         alt={ modalData?.name ?? ""}
                         className="h-full w-full items-center justify-center rounded-sm object-cover"
-                        src={ modalData?.image
-                            ? imageURL(modalData.image as string)
-                            : education_cover.src
+                        src={modalData?.image
+                          ? imageURL(JSON.parse(modalData.image)[0])
+                          : education_cover.src
                         }
                       />
                       <div className="mt-3 w-full">

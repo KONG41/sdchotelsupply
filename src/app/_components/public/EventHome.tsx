@@ -58,7 +58,7 @@ const EventHome = () => {
                     <img
                       alt={item.name}
                       className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full"
-                      src={item.image ? imageURL(item.image) : notfound_cover}
+                      src={item.image ? imageURL(JSON.parse(item.image)[0]) : notfound_cover}
                     />
                   </CardBody>
                   <CardFooter className="flex-col items-start text-small justify-between flex-auto">
