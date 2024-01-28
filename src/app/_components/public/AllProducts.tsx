@@ -13,8 +13,10 @@ const AllProducts = () => {
   const [catQuery, setCatQuery] = useState<string |null >()
   const searchParams = useSearchParams()
   const cat = searchParams.get('cat')
-  const productByCat = productData && productData.filter(x => x.categoryId === Number(cat))
+  const productByCat = productData && productData.filter(x => cat ? x.categoryId === Number(cat) : x)
   const catName = getCategory(Number(cat))
+  console.log(catName)
+  console.log(cat)
   useEffect(()=>{
     setCatQuery(cat)
   },[searchParams])
