@@ -12,7 +12,17 @@ const config = {
       {
         protocol: 'http',
         hostname: 'localhost',
+        port: '3001',
+      },
+      {
+        protocol: 'http',
+        hostname: '192.168.1.4',
         port: '3000',
+      },
+      {
+        protocol: 'https',
+        hostname: 'daerleng.site',
+        port: '',
       },
     ],
   },
