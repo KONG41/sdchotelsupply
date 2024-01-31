@@ -169,7 +169,7 @@ const Event = () => {
         </div>
       </div>
 
-      <ContactUs />
+      <ContactUs isGoogleMap={false} />
     </main>
   );
 };

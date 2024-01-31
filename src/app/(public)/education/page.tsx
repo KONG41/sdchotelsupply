@@ -84,7 +84,7 @@ const Education = () => {
         </div>
       </div>
 
-      <ContactUs />
+      <ContactUs isGoogleMap={false}/>
     </main>
   );
 };

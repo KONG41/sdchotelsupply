@@ -5,7 +5,7 @@ const Detail = ({params}:{params:{id:string}}) => {
   return (
     <div>
         <ProductDetail id={Number(params.id)}/>
-        <ContactUs/>
+        <ContactUs isGoogleMap={false}/>
     </div>
   )
 }

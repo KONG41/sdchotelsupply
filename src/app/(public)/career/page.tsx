@@ -154,7 +154,7 @@ const Page = () => {
         </div>
        
 
-      <ContactUs />
+      <ContactUs isGoogleMap={false}/>
     </main>
   );
 };

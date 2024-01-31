@@ -196,7 +196,7 @@ const About = () => {
         </div>
 
       </div>
-      <ContactUs />
+      <ContactUs isGoogleMap={false}/>
     </div>
   );
 };

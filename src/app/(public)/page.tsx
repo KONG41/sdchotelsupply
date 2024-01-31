@@ -99,7 +99,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className="pt-24">
-        <ContactUs />
+        <ContactUs isGoogleMap={false}/>
       </div>
        
     </main>

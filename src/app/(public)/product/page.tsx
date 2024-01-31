@@ -5,7 +5,7 @@ const Product = () => {
   return (
     <div>
       <AllProducts />
-      <ContactUs/>
+      <ContactUs isGoogleMap={false}/>
     </div>
   )
 }
