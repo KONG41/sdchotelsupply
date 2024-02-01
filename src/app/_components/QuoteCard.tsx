@@ -21,7 +21,7 @@ const QuoteCard = ({ title, subtitle }: cover) => {
       </center>
 
       <h1 className="text-center text-[36px] text-[#333333]">{title}</h1>
-      <p className="mx-32 my-5 text-center text-[#999999]">{subtitle}</p>
+      <p className="sm:mx-32 mx-3 my-5 text-center text-[#999999]">{subtitle}</p>
     </div>
   );
 };

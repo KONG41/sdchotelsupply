@@ -4,8 +4,8 @@ import ProductDetail from '~/app/_components/public/ProductDetail'
 const Detail = ({params}:{params:{id:string}}) => {
   return (
     <div>
-        <ProductDetail id={params.id}/>
-        <ContactUs/>
+        <ProductDetail id={Number(params.id)}/>
+        <ContactUs isGoogleMap={false}/>
     </div>
   )
 }

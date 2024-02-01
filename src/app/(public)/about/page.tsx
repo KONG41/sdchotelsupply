@@ -14,8 +14,9 @@ import certificate04 from "~/assets/certificate04.jpg";
 const About = () => {
   return (
     <div>
-      <CoverPage src={about_cv} title="About Us" navigation={false} />
-      <div className="container max-w-[1268px] mx-auto">
+      <CoverPage src={about_cv.src} title="About Us" navigation={false} />
+      <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
+       
         <div className="mb-40 mt-20">
           <h1 className="my-3 text-[39px]">About SDC Hotel Supply</h1>
           <p className="text-[21px]">(Think of Hotel Business, Think of SDC)</p>
@@ -33,15 +34,15 @@ const About = () => {
           </div>
         </div>
 
-        <div className="my-14 flex h-[699px] flex-row">
-          <div className="relative h-full w-5/12 p-3">
+        <div className="my-14 flex md:h-[699px] h-auto md:flex-row flex-col">
+          <div className="relative h-full md:w-5/12 w-full p-3">
             <p className="absolute top-0 z-10 text-[15px] text-[#D60054]">
               SDC HOTEL SUPPLY
             </p>
             <div className="flex h-full w-full flex-col justify-center">
               <h1 className="mb-7 flex w-full flex-row items-center justify-between border-b-2 border-black pb-7 text-[42px]">
                 SDC Mission
-                <span className="text-lg">
+                <span className="text-lg md:block hidden">
                   <IoIosArrowForward />
                 </span>
               </h1>
@@ -73,19 +74,19 @@ const About = () => {
             </div>
           </div>
           <div className="h-full w-7/12 p-3">
-            <Image src={mission} alt="about us mission" className="h-full" />
+            <Image src={mission} alt="about us mission" className="h-full object-cover" />
           </div>
         </div>
 
-        <div className="my-14 flex h-[499px] flex-row-reverse">
-          <div className="relative h-full w-4/12 p-3">
+        <div className="my-14 flex md:h-[499px] h-auto md:flex-row-reverse flex-col">
+          <div className="relative h-full md:w-4/12 w-full p-3">
             <p className="absolute top-0 z-10 text-[15px] text-[#D60054]">
               SDC HOTEL SUPPLY
             </p>
             <div className="flex h-full w-full flex-col justify-center">
               <h1 className="mb-7 flex w-full flex-row items-center justify-between border-b-2 border-black pb-7 text-[42px]">
                 SDC Vision
-                <span className="text-lg">
+                <span className="text-lg md:block hidden">
                   <IoIosArrowForward />
                 </span>
               </h1>
@@ -124,13 +125,13 @@ const About = () => {
             <Image
               src={vision}
               alt="about us mission"
-              className="h-full object-fill"
+              className="h-full object-cover"
             />
           </div>
         </div>
 
-        <div className="my-14 flex h-[499px] flex-row">
-          <div className="relative h-full w-4/12 p-3">
+        <div className="my-14 flex md:h-[499px] h-auto md:flex-row flex-col">
+          <div className="relative h-full md:w-4/12 w-full p-3">
             <p className="absolute top-0 z-10 text-[15px] text-[#D60054]">
               SDC HOTEL SUPPLY
             </p>
@@ -161,7 +162,7 @@ const About = () => {
             <Image
               src={goal}
               alt="about us mission"
-              className="h-full object-fill"
+              className="h-full object-cover"
             />
           </div>
         </div>
@@ -193,8 +194,9 @@ const About = () => {
             />
           </div>
         </div>
+
       </div>
-      <ContactUs />
+      <ContactUs isGoogleMap={false}/>
     </div>
   );
 };

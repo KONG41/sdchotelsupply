@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 
 export default function AdminSidebar(){
 

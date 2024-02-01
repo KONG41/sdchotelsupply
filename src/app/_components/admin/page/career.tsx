@@ -1,6 +1,6 @@
 "use client";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Spinner } from "@nextui-org/react";
-import type { Prisma } from "@prisma/client";
+// import type { Prisma } from "@prisma/client";
 import { trpc } from "~/app/_trpc/client";
 import EditModalBtn from "../modal-btn/career/update";
 import { useCallback } from "react";
@@ -8,12 +8,12 @@ import AddModalBtn from "../modal-btn/career/add";
 
 export default function Page(){
 
-    const { data:career , error ,isLoading} = trpc.career.gets.useQuery()
+    const { data:career ,isLoading} = trpc.career.gets.useQuery()
 
     // not use it because type of image too complicated
-    type Data =  {
+    // type Data =  {
 
-    }
+    // }
     
     const columns = [
         {key:"position",label:"POSITION"},
@@ -22,9 +22,9 @@ export default function Page(){
         {key:"closeDate",label:"CLOSE DATE"},
         {key:"action",label:"ACTION"}
     ];
-
+// eslint-disable-next-line
     const renderCell = useCallback((data: any , columnKey: React.Key) => {
-
+// eslint-disable-next-line
     const cellValue = data[columnKey as keyof any];
     switch (columnKey) {
       case "position":

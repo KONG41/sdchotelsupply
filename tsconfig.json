@@ -2,6 +2,7 @@
   "compilerOptions": {
     /* Base Options: */
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "target": "es2022",
     "allowJs": true,
@@ -13,11 +14,7 @@
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
     /* Bundled projects */
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "ESNext"
-    ],
+    "lib": ["dom", "dom.iterable", "ESNext"],
     "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "node",
@@ -31,12 +28,8 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
+      "~/*": ["./src/*"],
+      "@/*": ["src/*"]
     },
     "forceConsistentCasingInFileNames": true
   },
@@ -49,18 +42,5 @@
     "**/*.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ],
-  "ts-node": {
-    // It is faster to skip typechecking.
-    // Remove if you want ts-node to do typechecking.
-    "transpileOnly": true,
-    "files": true,
-    "compilerOptions": {
-      // compilerOptions specified here will override those declared below,
-      // but *only* in ts-node.  Useful if you want ts-node and tsc to use
-      // different options with a single tsconfig.json.
-    }
-  },
+  "exclude": ["node_modules"]
 }

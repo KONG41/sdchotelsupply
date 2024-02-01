@@ -1,5 +1,5 @@
 import { procedure, router } from "../trpc";
-import { TRPCError } from "@trpc/server";
+// import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { db } from "../db";
 
@@ -36,7 +36,7 @@ const eventRouter = router({
         name: z.string(),
         description: z.string(),
         youtubeLink: z.string(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
         status: z
           .string()
           .refine((value) => value === "active" || value === "disable", {
@@ -64,7 +64,7 @@ const eventRouter = router({
         name: z.string(),
         description: z.string(),
         youtubeLink: z.string(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
         status: z
           .string()
           .refine((value) => value === "active" || value === "disable", {
@@ -90,7 +90,7 @@ const eventRouter = router({
     .input(
       z.object({
         id: z.number(),
-        image: z.array(z.string()),
+        image: z.string(),
       }),
     )
     .mutation(async (opts) => {

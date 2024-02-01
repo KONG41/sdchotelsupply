@@ -9,10 +9,13 @@ const t = initTRPC.create();
 
 // Base router and procedure helpers
 export const router = t.router;
-export const procedure = t.procedure.use(async (opts) => {
+
+export const protectProcedure = t.procedure.use(async (opts) => {
   const user = await auth();
   if (!user) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return opts.next();
 });
+
+export const procedure = t.procedure;

@@ -11,3 +11,8 @@
 .description ul {
   padding-left: 50px;
 }
+
+.swiper-custom-color-pagination{
+        --swiper-navigation-color: #2e2e2e7f,
+        --swiper-pagination-color: #fff,
+}

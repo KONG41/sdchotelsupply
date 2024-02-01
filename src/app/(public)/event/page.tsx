@@ -1,5 +1,5 @@
 "use client";
-import React,{useState} from "react";
+import {useState} from "react";
 import {Image} from "@nextui-org/image";
 import education_cover from "~/assets/education_cover.jpg";
 import notfound_cover from "~/assets/404_notfound.svg";
@@ -8,9 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
-  Button,
-  ModalProps,
   useDisclosure,
   Card,
   CardBody,
@@ -22,25 +19,34 @@ import QuoteCard from "~/app/_components/QuoteCard";
 import { trpc } from "@/app/_trpc/client";
 import { imageURL } from "@/lib/utils";
 import empty from "~/assets/empty.svg";
-import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
 
-const formatDate = (date: any) => {
-  return format(date, "dd MMM, yyyy");
-};
 
 const Event = () => {
+  interface Event {
+    status: string | null;
+    id: number;
+    description: string | null;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    image: string | null;
+    youtubeLink: string | null;
+}
+  
+  const formatDate = (date:string) => {
+    return format(date, "dd MMM, yyyy");
+  };
   const { data, isLoading } = trpc.event.gets.useQuery();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("blur");
-  const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
+  const [backdrop, setBackdrop] = useState("blur");
+  const [scrollBehavior, setScrollBehavior] = useState("outside");
   // State to store the data for the modal
-  const [modalData, setModalData] = React.useState<Event>();
+  const [modalData, setModalData] = useState<Event>();
 
-  const handleOpenDetail = (item: any, backdrop: string) => {
-    console.log("backdrop", backdrop);
+  const handleOpenDetail = (item: Event) => {
     setBackdrop(backdrop);
     setModalData(item);
     onOpen();
@@ -48,17 +54,17 @@ const Event = () => {
 
   return (
     <main className="flex flex-col">
-      <CoverPage src={education_cover} title="Our Event" navigation={false} />
+      <CoverPage src={education_cover.src} title="Our Event" navigation={false} />
 
       <div className="relative my-10 h-full w-full bg-white">
-        <div className="container max-w-[1268px] mx-auto">
+        <div className="container sm:max-w-[1268px] w-[90%] mx-auto">
 
           
           <div className="my-20 flex w-full flex-col text-white">
             <h1 className="text-center text-[36px] text-[#333333]">
               CSR or Charity
             </h1>
-            <p className="mx-32 my-5 text-center text-[#999999]">
+            <p className="sm:mx-32 mx-3 my-5 text-center text-[#999999]">
               With a sensitivity to international trends in hotel linen, Canasin
               has successfully customized unique linen solutions for hotels around
               the world. We also provide a thoughtful one-stop service, for which
@@ -83,31 +89,33 @@ const Event = () => {
             )}
           </div>
 
-          <div className=" my-10 grid grid-cols-2 gap-5 sm:grid-cols-3">
-            {data &&
-              data.map((item: any, index) => (
+          <div className=" my-10 grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+            {data?.map((item, index) => (
                 <Card shadow="sm" key={index} className="rounded-md">
                   <CardBody
-                    className="overflow-visible p-0"
-                    onClick={() => handleOpenDetail(item, "blur")}
+                    className="overflow-visible p-0 flex-none"
+                    onClick={() => handleOpenDetail(item)}
                   >
                     <img
                       alt={item.name}
                       className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full"
-                      src={item.image ? imageURL(item.image) : notfound_cover}
+                      src={item.image ? imageURL(JSON.parse(item.image)[0]) : notfound_cover}
                     />
                   </CardBody>
-                  <CardFooter className="flex-col items-start text-small">
-                    <b className="my-1 mr-3 w-full truncate">{item.name}</b>
-                    <p
-                      className="my-2 text-start text-default-500"
-                      dangerouslySetInnerHTML={{
-                        __html: item.description.slice(0, 200) as string,
-                      }}
-                    />
+                  <CardFooter className="flex-col items-start text-small justify-between flex-auto">
+                    <div>
+                      <b className="my-1 mr-3 w-full truncate">{item.name}</b>
+                      <p
+                        className="my-2 text-start text-default-500"
+                        dangerouslySetInnerHTML={{
+                          __html: item.description?.slice(0, 200) ?? "" ,
+                        }}
+                      />
+                    </div>
+                    
                     <div className="ml-auto flex gap-1">
                       <p className="text-small font-semibold text-default-400">
-                        {formatDate(item.createdAt)}
+                        {formatDate(item?.createdAt)}
                       </p>
                     </div>
                   </CardFooter>
@@ -115,21 +123,18 @@ const Event = () => {
               ))}
           </div>
 
-          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior={scrollBehavior}>
+          <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size="5xl" scrollBehavior="outside">
             <ModalContent>
               {() => (
                 <>
                   <center>
                     <ModalHeader className="m-3 flex h-[auto] w-6/6 flex-col items-center justify-center pt-14 ">
                       <Image
-                        // width={100}
-                        // height={100}
-                        alt={modalData && modalData.name ? modalData.name : ""}
+                        alt={ modalData?.name ?? ""}
                         className="h-full w-full items-center justify-center rounded-sm object-cover"
-                        src={
-                          modalData && modalData.image
-                            ? imageURL(modalData.image as string)
-                            : education_cover
+                        src={modalData?.image
+                          ? imageURL(JSON.parse(modalData.image)[0])
+                          : education_cover.src
                         }
                       />
                       <div className="mt-3 w-full">
@@ -144,7 +149,7 @@ const Event = () => {
 
                     <p
                       dangerouslySetInnerHTML={{
-                        __html: (modalData && modalData.description) as string,
+                        __html: modalData?.description ?? "",
                       }}
                     />
                   </ModalBody>
@@ -164,7 +169,7 @@ const Event = () => {
         </div>
       </div>
 
-      <ContactUs />
+      <ContactUs isGoogleMap={false} />
     </main>
   );
 };

@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
     // relationMode = "prisma"
 }
@@ -20,7 +20,7 @@ model Post {
     id        Int      @id @default(autoincrement())
     name      String
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @default(now()) @updatedAt
 
     @@index([name])
 }
@@ -34,7 +34,7 @@ model User {
     role      String?  @default("user")
     status    String?  @default("active")
     createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Menu {
@@ -43,7 +43,7 @@ model Menu {
     status      String?
     description String?
     createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
+    updatedAt   DateTime  @default(now()) @updatedAt
     subMenus    SubMenu[]
 
     @@index([name])
@@ -56,7 +56,7 @@ model SubMenu {
     description String?
     parentId    Int?
     createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
+    updatedAt   DateTime  @default(now()) @updatedAt
     products    Product[]
     parent      Menu?     @relation(fields: [parentId], references: [id])
 
@@ -70,10 +70,10 @@ model Product {
     description String?  @db.Text
     price       Float?
     popular     Boolean?
-    image       Json?
+    image       String?  @default("[]")
     categoryId  Int?
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
     category    SubMenu? @relation(fields: [categoryId], references: [id])
 }
 
@@ -82,9 +82,9 @@ model Promotion {
     name        String
     status      String?
     description String?  @db.Text
-    image       Json?
+    image       String?  @default("[]")
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Event {
@@ -92,10 +92,10 @@ model Event {
     name        String
     status      String?
     description String?  @db.Text
-    image       Json?
+    image       String?  @default("[]")
     youtubeLink String?
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Client {
@@ -103,9 +103,9 @@ model Client {
     name        String
     year        String?
     description String?  @db.Text
-    image       Json?
+    image       String?  @default("[]")
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Education {
@@ -113,8 +113,9 @@ model Education {
     name        String
     description String?  @db.Text
     youtubeLink String?
+    categoryId  Int?
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Career {
@@ -124,7 +125,7 @@ model Career {
     openDate    String?
     closeDate   String?
     description String?  @db.Text
-    image       Json?
+    image       String?  @default("[]")
     createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    updatedAt   DateTime @default(now()) @updatedAt
 }

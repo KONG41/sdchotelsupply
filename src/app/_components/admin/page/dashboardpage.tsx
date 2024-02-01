@@ -1,10 +1,11 @@
 "use client";
-import Editor from "../editor";
+// import Editor from "../editor";
 
 export default function DashboardPage(){
 
 
   return <div>
-    <Editor/>
+    Hello Dashboard
+    {/* <Editor/> */}
   </div> 
 }

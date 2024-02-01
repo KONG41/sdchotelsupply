@@ -15,7 +15,7 @@ export default function EditModalBtn({id}:{id:number}) {
 
     const utils = trpc.useUtils()
 
-    const {data:submenu, error , isLoading} = trpc.subMenu.get.useQuery({id})
+    const {data:submenu} = trpc.subMenu.get.useQuery({id})
     const {data:parentList} = trpc.subMenu.getParentList.useQuery()
 
     useEffect(()=>{
@@ -72,7 +72,7 @@ export default function EditModalBtn({id}:{id:number}) {
       <Button onPress={onOpen}>Edit</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} onClose={handleCancel}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">Edit Submenu</ModalHeader>
               <ModalBody>

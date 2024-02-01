@@ -1,4 +1,5 @@
-import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
+// import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {
@@ -25,7 +26,6 @@ export const {
           headers: { "Content-Type": "application/json" },
         });
         const user = await res.json();
-        // console.log("user", user, res.ok);
         if (res.ok && user.status !== "active") {
           return null;
         }

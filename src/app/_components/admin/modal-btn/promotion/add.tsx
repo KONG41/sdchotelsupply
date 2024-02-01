@@ -18,8 +18,8 @@ export default function AddModalBtn() {
     const [filesWithTimestamp, setFilesWithTimestamp] = useState<{ file: File, name: string }[]>([]);
 
     useEffect(() => {
-      let str: string[] = [];
-      let files: { file: File, name: string }[] = [];
+      const str: string[] = [];
+      const files: { file: File, name: string }[] = [];
       
       if (selectedFiles.length > 0) {
         selectedFiles.forEach((file) => {
@@ -65,7 +65,7 @@ export default function AddModalBtn() {
           name,
           description,
           status,
-          image
+          image: JSON.stringify(image)
       })
     }
 
@@ -83,7 +83,7 @@ const handleUpload = async () => {
       if (!res.ok) {
         return false
       }
-      const data = await res.json();
+      await res.json();
       return true
     } catch (error) {
       console.error('An error occurred:', error);

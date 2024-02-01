@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 export default function Page(){
 
-    const { data , error ,isLoading} = trpc.education.gets.useQuery()
+    const { data  ,isLoading} = trpc.education.gets.useQuery()
     
     type Data =  {
     id: number;
@@ -24,7 +24,7 @@ export default function Page(){
         {key:"description",label:"DESCRIPTION"},
         {key:"action",label:"ACTION"}
     ];
-
+    /* eslint-disable */
     const renderCell = useCallback((data: Data , columnKey: React.Key) => {
     if(!data) return null
     const cellValue = data[columnKey as keyof Data];

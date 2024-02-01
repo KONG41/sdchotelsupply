@@ -14,7 +14,7 @@ export default function EditModalBtn({id}:{id:number}) {
 
     const utils = trpc.useUtils()
 
-    const {data:menu, error , isLoading} = trpc.menu.get.useQuery({id})
+    const {data:menu} = trpc.menu.get.useQuery({id})
 
     useEffect(()=>{
         if(menu){
@@ -66,7 +66,7 @@ export default function EditModalBtn({id}:{id:number}) {
       <Button onPress={onOpen}>Edit</Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false} onClose={handleCancel}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">Edit Menu</ModalHeader>
               <ModalBody>

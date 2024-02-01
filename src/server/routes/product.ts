@@ -1,5 +1,5 @@
 import { procedure, router } from "../trpc";
-import { TRPCError } from "@trpc/server";
+// import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { db } from "../db";
 
@@ -37,7 +37,7 @@ const productRouter = router({
         price: z.number(),
         description: z.string(),
         popular: z.boolean(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
         categoryId: z.number(),
         status: z
           .string()
@@ -70,7 +70,7 @@ const productRouter = router({
         price: z.number(),
         description: z.string(),
         popular: z.boolean(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
         categoryId: z.number(),
         status: z
           .string()
@@ -99,7 +99,7 @@ const productRouter = router({
           status,
           popular,
           categoryId,
-          image,
+          image: image,
         },
       });
       return true;
@@ -108,7 +108,7 @@ const productRouter = router({
     .input(
       z.object({
         id: z.number(),
-        image: z.array(z.string()),
+        image: z.string(),
       }),
     )
     .mutation(async (opts) => {

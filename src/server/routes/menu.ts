@@ -5,7 +5,11 @@ import { db } from "../db";
 
 const menuRouter = router({
   gets: procedure.query(async () => {
-    const menus = await db.menu.findMany();
+    const menus = await db.menu.findMany({
+      include: {
+        subMenus: true,
+      },
+    });
     return menus;
   }),
   add: procedure

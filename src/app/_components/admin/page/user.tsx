@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 export default function UserPage(){
 
-    const { data:users , error ,isLoading} = trpc.getUsers.useQuery()
+    const { data:users ,isLoading} = trpc.getUsers.useQuery()
     console.log("user",users)
     
     type User =  {
@@ -23,7 +23,7 @@ export default function UserPage(){
         {key:"status",label:"STATUS"},
         {key:"action",label:"ACTION"}
     ];
-
+    /* eslint-disable */
     const renderCell = useCallback((user: User , columnKey: React.Key) => {
 
     const cellValue = user[columnKey as keyof User];

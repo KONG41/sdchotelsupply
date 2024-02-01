@@ -1,5 +1,5 @@
 import { procedure, router } from "../trpc";
-import { TRPCError } from "@trpc/server";
+// import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { db } from "../db";
 
@@ -38,7 +38,7 @@ const careerRouter = router({
         openDate: z.string(),
         closeDate: z.string(),
         description: z.string(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
       }),
     )
     .mutation(async (opts) => {
@@ -56,7 +56,7 @@ const careerRouter = router({
         openDate: z.string(),
         closeDate: z.string(),
         description: z.string(),
-        image: z.array(z.string()).optional(),
+        image: z.string().optional(),
       }),
     )
     .mutation(async (opts) => {
@@ -79,7 +79,7 @@ const careerRouter = router({
     .input(
       z.object({
         id: z.number(),
-        image: z.array(z.string()),
+        image: z.string(),
       }),
     )
     .mutation(async (opts) => {

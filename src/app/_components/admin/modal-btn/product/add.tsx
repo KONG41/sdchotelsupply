@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem, Textarea} from "@nextui-org/react";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Input, Select, SelectItem} from "@nextui-org/react";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 import ImageUploader from "@/app/_components/admin/imageuploader";
@@ -21,8 +21,8 @@ export default function AddModalBtn() {
     const [filesWithTimestamp, setFilesWithTimestamp] = useState<{ file: File, name: string }[]>([]);
 
     useEffect(() => {
-      let str: string[] = [];
-      let files: { file: File, name: string }[] = [];
+      const str: string[] = [];
+      const files: { file: File, name: string }[] = [];
       
       if (selectedFiles.length > 0) {
         selectedFiles.forEach((file) => {
@@ -76,7 +76,7 @@ export default function AddModalBtn() {
           categoryId,
           popular, 
           status,
-          image
+          image:JSON.stringify(image)
       })
     }
 
@@ -94,7 +94,7 @@ const handleUpload = async () => {
       if (!res.ok) {
         return false
       }
-      const data = await res.json();
+      await res.json();
       return true
     } catch (error) {
       console.error('An error occurred:', error);

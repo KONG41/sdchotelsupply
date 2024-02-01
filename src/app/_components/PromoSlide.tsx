@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import 'swiper/css';
@@ -9,15 +9,34 @@ import '~/styles/home.css';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import {imageURL} from "@/lib/utils"
 import { trpc } from '../_trpc/client';
+
+interface PromotionType {
+  status: string | null;
+      id: number;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      description: string | null;
+      price: number | null;
+      popular: boolean | null;
+      image: string | null;
+      categoryId: number | null;
+      category: {
+          status: string | null;
+          id: number;
+          description: string | null;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+          parentId: number | null;
+      } | null;// or whatever the correct type is
+}
+
 const PromoSlide = () => {
   const {data} = trpc.promotion.gets.useQuery()
   return (
     <div className='w-full h-[430px]'>
       <Swiper
-      style={{
-        '--swiper-navigation-color': '#2e2e2e7f',
-        '--swiper-pagination-color': '#fff',
-      }}
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
@@ -30,12 +49,12 @@ const PromoSlide = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="w-full h-full"
+        className="w-full h-full swiper-custom-color-pagination"
       >
         {
-          data && data.map((item,index)=>
+          data && (data as PromotionType[]).map((item,index)=>
             item.status == 'active' && 
-            <SwiperSlide ><Image fill={true}  src={item.image&&imageURL(item.image[0])} alt='promotion01' className='!object-contain'/></SwiperSlide>
+            <SwiperSlide key={`slide_${index}`} ><Image fill={true}  src={`${item.image?imageURL(JSON.parse(item.image)[0]):"/"}`} alt='promotion01' className='!object-contain'/></SwiperSlide>
           )
         }
       </Swiper>
