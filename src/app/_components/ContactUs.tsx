@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import contact_bg from '@/assets/contact_bg.png'
 import { trpc } from '../_trpc/client';
 // import { url } from 'inspector';
-import GoogleMaps from './widgets/GoogleMaps';
+import ImgMap from './widgets/ImgMap';
 
 type contactType = {
   isGoogleMap: boolean;
@@ -45,7 +45,7 @@ const ContactUs = ({isGoogleMap = true}:contactType) => {
                     <p className='text-[13px] text-gray-500 my-3'>*We respect your confidentiality and all information are protected.</p>
                 </form>
                 <p className='text-[13px] my-5'><span className='font-semibold'>Address:</span> #32, St. Somdach Hun Neang, Sangkat Chak Angrae Kraom, Khan Mean Chhey, Phnom Penh.</p>
-                 {isGoogleMap && <GoogleMaps/>}
+                 {isGoogleMap && <ImgMap/>}
             </div>
            
            
