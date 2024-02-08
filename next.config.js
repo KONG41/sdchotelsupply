@@ -6,6 +6,7 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+  output: 'standalone',
   images: {
     domains: ["img.icons8.com"],
     remotePatterns: [
@@ -32,6 +33,11 @@ const config = {
       {
         protocol: 'https',
         hostname: 'sdchotelsupply-xi.vercel.app',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'angkorfriend.com',
         port: '',
       },
     ],
