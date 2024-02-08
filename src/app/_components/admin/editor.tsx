@@ -18,6 +18,7 @@ export default function Editor({value,setValue,readOnly}:{value:string,setValue:
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
       [{ 'align': [] }],
+      ['link', 'image', 'video'],
 
     ];
 
