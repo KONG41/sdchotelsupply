@@ -55,7 +55,7 @@ const Education = () => {
             {data &&
               data.map((item, index) => (
                 <Card shadow="sm" key={index} isPressable>
-                  <CardBody className="overflow-visible p-0">
+                  <CardBody className="overflow-visible p-0 h-[215px]">
                     <YouTubePlayer
                       videoId={item && item.youtubeLink?.split("v=")[1]}
                      
@@ -66,7 +66,7 @@ const Education = () => {
                       {item.name}
                     </b>
                     <p className="my-2 flex-nowrap overflow-hidden text-start text-default-500">
-                      {item.description}
+                      {item.description?.slice(0, 170)}
                     </p>
                   </CardFooter>
                 </Card>

@@ -17,7 +17,7 @@ const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ videoId }) => {
   };
 
   const opts: YouTubeProps["opts"] = {
-    height: "215",
+    height: "100%",
     width: "100%",
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
@@ -25,7 +25,7 @@ const YouTubePlayer: React.FC<YouTubePlayerProps> = ({ videoId }) => {
     },
   };
 
-  return <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />;
+  return <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} className="h-full"/>;
 };
 
 export default YouTubePlayer;
