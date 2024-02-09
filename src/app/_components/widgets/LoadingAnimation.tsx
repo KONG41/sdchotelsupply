@@ -1,19 +1,12 @@
 "use client";
 import React from "react";
-import Lottie from "react-lottie";
+// import Lottie from "react-lottie";
+import Loading from "@/assets/loading.png"
 import * as loadingAnimation from "@/assets/loading_animation.json";
 
 const LoadingAnimation = () => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loadingAnimation,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
-  return <Lottie options={defaultOptions} height={400} width={400} />;
+  return <img src={Loading.src} className="w-[300px] h-[300px]"/>
 };
 
 export default LoadingAnimation;
