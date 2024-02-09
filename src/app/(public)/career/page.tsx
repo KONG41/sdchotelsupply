@@ -126,7 +126,7 @@ const Page = () => {
                 {() => (
                   <>
                     <ModalHeader className="gap- m-3 flex flex-col pt-14">
-                      <div className="mt-3">{modalData && modalData.position}</div>
+                      <div className="mt-3 font-bold uppercase text-[24px] text-center">{modalData && modalData.position}</div>
                     </ModalHeader>
                     <ModalBody className="description m-3 mb-3">
                       {/* <p>{modalData && modalData.description}</p> */}
