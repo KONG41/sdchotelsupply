@@ -17,23 +17,13 @@ import { Event } from "@prisma/client";
 import { format } from "date-fns";
 import notfound_cover from "~/assets/404_notfound.svg";
 import education_cover from "~/assets/education_cover.jpg";
-// interface dataType{
-//   status:string,
-//   name:string,
-//   image:any,
-//   id:any
-// }
-// eslint-disable-next-line
+import YouTubePlayer from "~/app/_components/YoutubePlayer"
 const formatDate = (date: any) => {
   return format(date, "dd MMM, yyyy");
 };
 const EventHome = () => {
   const { data } = trpc.event.gets.useQuery();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
-  // const [scrollBehavior, setScrollBehavior] = useState<ModalProps["scrollBehavior"]>("outside");
-  // State to store the data for the modal
   const [modalData, setModalData] = React.useState<Event>();
 // eslint-disable-next-line
   const handleOpenDetail = (item: any) => {
@@ -55,13 +45,26 @@ const EventHome = () => {
                     className="overflow-visible p-0 flex-none"
                     onClick={() => handleOpenDetail(item)}
                   >
+                     {item.youtubeLink ? 
+                   <div className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full ">
+                    <YouTubePlayer
+                      videoId={item && item.youtubeLink?.split("v=")[1]}
+                      
+                    />
+                   </div>
+                     :
+
                     <img
                       alt={item.name}
                       className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full"
                       src={item.image ? imageURL(JSON.parse(item.image)[0]) : notfound_cover}
                     />
+                  }
                   </CardBody>
-                  <CardFooter className="flex-col items-start text-small justify-between flex-auto">
+                  <CardFooter 
+                    className="flex-col items-start text-small justify-between flex-auto"
+                    onClick={() => handleOpenDetail(item)}
+                  >
                     <div>
                       <b className="my-1 mr-3 w-full truncate">{item.name}</b>
                       <p
@@ -99,15 +102,12 @@ const EventHome = () => {
                             : education_cover.src
                         }
                       />
-                      <div className="mt-3 w-full">
-                        <p className="float-left">{modalData && modalData.name}</p>
-                      </div>
                     </ModalHeader>
                   </center>
                   <ModalBody className="m-3 mb-3">
-                    <b className="my-1 mr-3 w-full truncate">
+                    <p className="my-1 mr-3 w-full truncate mb-3 text-2xl font-semibold">
                       {modalData && modalData.name}
-                    </b>
+                    </p>
 
                     <p
                       dangerouslySetInnerHTML={{
