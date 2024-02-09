@@ -21,7 +21,7 @@ import { imageURL } from "@/lib/utils";
 import empty from "~/assets/empty.svg";
 import { format } from "date-fns";
 import LoadingAnimation from "~/app/_components/widgets/LoadingAnimation";
-
+import YouTubePlayer from "~/app/_components/YoutubePlayer"
 
 const Event = () => {
   interface Event {
@@ -51,7 +51,6 @@ const Event = () => {
     setModalData(item);
     onOpen();
   };
-
   return (
     <main className="flex flex-col">
       <CoverPage src={education_cover.src} title="Our Event" navigation={false} />
@@ -96,15 +95,29 @@ const Event = () => {
                     className="overflow-visible p-0 flex-none"
                     onClick={() => handleOpenDetail(item)}
                   >
+                   {item.youtubeLink ? 
+                   <div className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full ">
+                    <YouTubePlayer
+                      videoId={item && item.youtubeLink?.split("v=")[1]}
+                      
+                    />
+                   </div>
+                     :
+
                     <img
                       alt={item.name}
                       className="h-64 object-cover rounded-b-none rounded-t-md shadow-sm w-full"
                       src={item.image ? imageURL(JSON.parse(item.image)[0]) : notfound_cover}
                     />
+                  }
+                    
                   </CardBody>
-                  <CardFooter className="flex-col items-start text-small justify-between flex-auto">
+                  <CardFooter 
+                    className="flex-col items-start text-small justify-between flex-auto"
+                    onClick={() => handleOpenDetail(item)}
+                  >
                     <div>
-                      <b className="my-1 mr-3 w-full truncate">{item.name}</b>
+                      <b className="my-1 mr-3 w-full truncate">{item.name?.length > 40 ? item.name?.slice(0,40) + " . . ." : item.name}</b>
                       <p
                         className="my-2 text-start text-default-500"
                         dangerouslySetInnerHTML={{
@@ -137,15 +150,13 @@ const Event = () => {
                           : education_cover.src
                         }
                       />
-                      <div className="mt-3 w-full">
-                        <p className="float-left">{modalData && modalData.name}</p>
-                      </div>
+                     
                     </ModalHeader>
                   </center>
                   <ModalBody className="m-3 mb-3">
-                    <b className="my-1 mr-3 w-full truncate">
+                    <p className="my-1 mr-3 w-full truncate mb-3 text-2xl font-semibold">
                       {modalData && modalData.name}
-                    </b>
+                    </p>
 
                     <p
                       dangerouslySetInnerHTML={{
